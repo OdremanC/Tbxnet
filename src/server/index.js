@@ -57,10 +57,6 @@ app.use((req, res, next) => {
   return next();
 });
 
-// API dispatch
-//app.use('/api/blog', blogApi);
-//app.use('/api/library', libraryApi);
-
 // Sending all the traffic to React
 app.get('*', (req, res) => {
   res.render('frontend/index', {

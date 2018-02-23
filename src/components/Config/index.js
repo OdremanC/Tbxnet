@@ -34,7 +34,7 @@ class Config extends Component{
                 </p>
                 <Link to="/menu" className="list-group-item list-group-item-action">Menu</Link>
                 <Link to="Perfiles" className="list-group-item list-group-item-action">Perfiles</Link>
-                <Link to="/Secciones" className="list-group-item list-group-item-action">Secciones</Link>
+                <Link to="/users" className="list-group-item list-group-item-action">Users</Link>
               </div>
             </div>
           </div>

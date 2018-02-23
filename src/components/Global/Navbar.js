@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 //cookies
 import Cookies from 'universal-cookie';
 
-import * as actions from '../Users/actions';
+import * as actions from '../Menu/actions';
 import { getValueLogin, getUserNameLogin } from '../Global/Functions/';
 
 const cookies = new Cookies();
@@ -29,6 +29,13 @@ class Navbar extends Component {
     title: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
   };
+   componentWillReceiveProps(nextProps){
+      
+      
+  }
+  componentDidMount(){
+    this.props.getAllMenu();
+  }
 
   logout = (event)=>{
     event.preventDefault();
@@ -42,6 +49,7 @@ class Navbar extends Component {
 
     const { title, items,logueado } = this.props;
     const { userName,isLogin } =this.state;  
+    
 
     return (
       <nav className="navbar navbar-expand-lg navbar-inverse">
@@ -51,13 +59,13 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
               {
-                getValueLogin() && items.map(
+                getValueLogin() && this.props.menuData.map(
                   (item, key) => <li key={key} className="nav-li"><Link className="link-nav" to={item.url}>{item.title}</Link></li>
                 )
               }
           </ul>
           <div className="navbar-header">
-           <Link to="/user" className="navbar-brand userColor">{getUserNameLogin()}</Link>
+            <Link to="/user" className="navbar-brand userColor">{getUserNameLogin()}</Link>
           </div>
             {
               getValueLogin() && <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.logout}>Logout</button>
@@ -69,5 +77,6 @@ class Navbar extends Component {
 }
 
 export default withRouter(connect(state=>({
-  routes: state.router
+  routes: state.router,
+  menuData: state.menuReducer.menuData
 }),actions)(Navbar));

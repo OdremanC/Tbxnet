@@ -13,12 +13,10 @@ import Users from './components/Users';
 import Login from './components/Login';
 import Page404 from './components/Page404';
 import Usuario from './components/Users/user';
-
+import Menu from './components/Menu';
 import Config from './components/Config';
-
-
-
-
+import Perfiles from './components/Perfiles';
+import addPerfiles  from './components/Perfiles/Formularios/';
 
 
 //CONFIGIRACION DE RUTAS DE LA APLICACION
@@ -27,10 +25,14 @@ const AppRoutes = () =>
   <App>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/users" component={Users} />
+      <Route exact path="/Users" component={Users} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/user" component={Usuario} />
-      <Route exact path="/config" component={Config} />
+      <Route exact path="/User" component={Usuario} />
+      <Route exact path="/Config" component={Config} />
+      <Route exact path="/menu" component={Menu} />
+      <Route exact path="/Perfiles" component={Perfiles} />
+      <Route exact path="/addPerfil" component={addPerfiles} />
+      <Route exact path="/addPerfil/:id" component={addPerfiles} />
 
       <Route component={Page404} />
     </Switch>

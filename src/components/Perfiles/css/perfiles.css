@@ -1,0 +1,27 @@
+.Perfiles {
+  margin-top: 20px;
+}
+
+
+.shareholder {
+  display: flex;
+  direction: row;
+  align-items: center;
+}
+
+.shareholder button {
+  margin: 0;
+  margin-left: 10px;
+}
+.small{
+  margin-top: 5px;
+
+}
+.formulario{
+  border: 1px solid;
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+  margin-top: 10px;
+  background-color: lightgrey;
+}

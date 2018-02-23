@@ -7,5 +7,18 @@ export const API = Object.freeze({
     ADD: '/users',
     EDIT: '/users/',
     GETSINGLE: '/users/userName/'
+  },
+  MENU:{
+    GETMENU: '/menu',
+    ADD: '/menu',
+    DELETE: '/menu/',
+    UPDATE: '/menu/'
+  },
+  PERFILES:{
+    ALLPERFILES: '/perfiles',
+    ADD: '/perfiles',
+    DELETE: '/perfiles/',
+    GETSINGLE: '/perfiles/',
+    UPDATE: '/perfiles/'
   }
 });

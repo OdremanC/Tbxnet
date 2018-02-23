@@ -14,14 +14,18 @@ export function apiFetch(endpoint, options = {}, query, data,method) {
       const fetchOptions = apiOptions(options,data,method);
       const fetchEndpoint = apiEndpoint(endpoint, query);
       const response = await fetch(fetchEndpoint, fetchOptions);
+      const json =  await response.json();
+    
+      return json;
 
-      return response.json();
     } catch (e) {
 
       throw e;
     }
   };
-  return getPromise();
+  
+   return getPromise();
+    
 }
 
 //configuracion del endpoint del servicio a consumir

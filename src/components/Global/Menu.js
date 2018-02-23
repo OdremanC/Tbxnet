@@ -21,19 +21,7 @@ class Menu extends Component{
     render(){
         return(
             <div className="Menu">
-                <div className="sidebar-nav">
-            <div className="well">
-                <ul className="nav nav-list"> 
-                  <li className="nav-header">Main</li>        
-                  <li className="active"><a href="../aaa/index"><i className="icon-home"></i> Dashboard</a></li>
-                  <li><a href="#"><i className="but-primary"></i> Add Blog Post</a></li>
-                  <li><a href="#"><i className="icon-calendar"></i> Calendar</a></li>
-                  <li><a href="#"><i className="icon-user"></i> Members</a></li>
-                  <li><a href="#"><i className="icon-comment"></i> Comments</a></li>
-                  <li><a href="#"><i className="icon-picture"></i> Gallery</a></li>
-                </ul>
-            </div>
-        </div>
+          
             </div>
        
         );    
