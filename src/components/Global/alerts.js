@@ -49,7 +49,7 @@ class Alerts extends Component {
   render(){
     
     return(
-      <div>
+      <div className="Modal">
       <Alert stack={{limit: 1}} />
       </div>
     );

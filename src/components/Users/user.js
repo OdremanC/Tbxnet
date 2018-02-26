@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { getValueLogin, getUserNameLogin } from '../Global/Functions/';
 
 import  Modal from '../Global/ModalComponent/Modal';
-import ProfilePage from './Formularios/formProfilePage';
+import ProfilePage from './formProfilePage';
 //import Table from './tableComponents/TableGenerator';
 //import Formulario from './Formularios/formStock';
 import * as actions from './actions';

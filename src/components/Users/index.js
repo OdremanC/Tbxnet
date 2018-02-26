@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import { getValueLogin } from '../Global/Functions/';
 
 import  Modal from '../Global/ModalComponent/Modal';
-import Formulario from './Formularios/formUsers';
-import Table from './tableComponents/TableGenerator';
+import Formulario from './formUsers';
+import Table from './TableGenerator';
 //import Formulario from './Formularios/formStock';
 import * as actions from './actions';
 
@@ -58,17 +58,8 @@ class Users extends Component {
 
 	handleEditarIndex = (event) => {
     const userID = event;
-    var resultObject = this.props.DataUsers.find(function(user){
-      return user._id === userID;
-    });
-
-    if(resultObject && resultObject._id.length > 0){
-      this.setState({
-        isOpen: !this.state.isOpen,
-        editData:resultObject
-      });
-    };
-	}
+    this.props.history.push("/addUser/"+userID)
+  }
 	getDataFormChild = (dataFromForm) =>{
     	
     const query = dataFromForm.editID;
@@ -107,21 +98,9 @@ class Users extends Component {
 	 
 		return (
 			<div className="Users">
-			 <button onClick={this.openModal} className= "btn btn-success">Add</button> 
+			 <Link to="/addUser"className= "btn btn-success">Add</Link> 
 			 <h2>All users</h2>
-			 <Modal className="modal"
-          show={this.state.isOpen}
-          onAfterOpen={this.afterOpenModal}
-          onClose={this.closeModal}
-          contentLabel="ModalForm" 
-        >
-          <h4>Cargar Usuarios</h4>
-            <Formulario 
-              passDataToParent = {this.getDataFormChild} 
-              putCloseModal = {this.closeModal}
-              dataToEdit={this.state.editData}
-            />
-        </Modal>
+			 
 			<Table
 				cabeceras ={cabeceras}
         	tableData ={this.props.DataUsers}

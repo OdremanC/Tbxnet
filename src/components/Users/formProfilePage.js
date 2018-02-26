@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 
 import PropTypes  from 'prop-types';
 import { connect } from 'react-redux';
-import { getValueLogin, getUserNameLogin } from '../../Global/Functions/';
-import '../css/users.css';
-import * as actions from '../actions';
+import { getValueLogin, getUserNameLogin } from '../Global/Functions/';
+import './users.css';
+import * as actions from './actions';
 
 
 class ProfilePage extends Component{

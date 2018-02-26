@@ -9,7 +9,7 @@ const initialState = {
   perfil: []
 }
 
-export default function usersData(state = initialState, action){
+export default function perfileReducer(state = initialState, action){ 
   const dataPerfiles = Object.assign([], state.perfiles);
 
   switch(action.type){

@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PropTypes  from 'prop-types';
 import { Link } from 'react-router-dom';
-import Paginador from '../../Global/Paginador';
-import './css/tabla.css';
+import Paginador from '../Global/Paginador';
+import './tabla.css';
 
 
 class Table  extends Component {

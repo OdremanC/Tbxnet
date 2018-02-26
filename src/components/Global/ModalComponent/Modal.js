@@ -2,18 +2,19 @@
 import React, { Component } from 'react';
 //MODAL
 //import ModalGlobal from 'react-modal';
-import Modal from 'react-awesome-modal';
+//import Modal from 'react-awesome-modal';
+import { Modal,Button } from 'react-bootstrap';
 import PropTypes  from 'prop-types';
 
 // Assets
-import '../css/modal.css';
+import './modal.css';
 
 class ModalGlobal extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      visible: false,
+      show: false,
       title: '',
       children: {}
     }
@@ -26,7 +27,7 @@ class ModalGlobal extends Component {
   componentWillReceiveProps(nextProps){  
     if (nextProps) {
       this.setState({
-        visible:nextProps.show,
+        show:nextProps.show,
         title: nextProps.title,
         children: nextProps.children
       });
@@ -34,13 +35,13 @@ class ModalGlobal extends Component {
   }
   openModal() {
    this.setState({
-      visible : true
+      show : true
     });
   }
  
   closeModal() {
     this.setState({
-      visible : false,
+      show : false,
       titulo: '',
       children: {}
     });
@@ -55,17 +56,19 @@ class ModalGlobal extends Component {
 
 		return (    
 	    
-       <section>
-         <div className="container">
-          <Modal className="modal" visible={this.state.visible} onClickAway={() => this.closeModal()}>
-            <div>
-              <div className="titulo">{this.state.title}</div>
-              <div className="col-12 contenido">
-                {this.state.children}
-              </div>
-            </div>
-          </Modal>
-        </div>
+      <section>
+
+      <div className="contained-modal" >
+        <Modal.Dialog>
+          <Modal.Header>
+            <Modal.Title>{this.props.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body >{this.props.children}</Modal.Body>
+          <Modal.Footer>
+        
+        </Modal.Footer>
+        </Modal.Dialog>
+      </div>
       </section>
 	    
     );

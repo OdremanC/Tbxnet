@@ -13,6 +13,7 @@ import Users from './components/Users';
 import Login from './components/Login';
 import Page404 from './components/Page404';
 import Usuario from './components/Users/user';
+import AddUser from './components/Users/formUsers'
 import Menu from './components/Menu';
 import Config from './components/Config';
 import Perfiles from './components/Perfiles';
@@ -28,6 +29,8 @@ const AppRoutes = () =>
       <Route exact path="/Users" component={Users} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/User" component={Usuario} />
+      <Route exact path="/addUser" component={AddUser} />
+      <Route exact path="/addUser/:id" component={AddUser} />
       <Route exact path="/Config" component={Config} />
       <Route exact path="/menu" component={Menu} />
       <Route exact path="/Perfiles" component={Perfiles} />

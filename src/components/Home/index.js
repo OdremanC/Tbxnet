@@ -8,12 +8,12 @@ import { connect } from 'react-redux';
 import { isFirstRender } from '../../lib/utils/frontend';
 import  Modal from '../Global/ModalComponent/Modal';
 //import  FormsBuilder from '../Global/Modal';
-import  Table from './tableComponents/TableGenerator';
+//import  Table from './tableComponents/TableGenerator';
 
 
 import { getValueLogin,getUserIdFromCookie } from '../Global/Functions/';
 //formulario
-import Formulario from './Formularios/formClientes';
+//import Formulario from './Formularios/formClientes';
 
 //tooltips
 import ReactTooltip from 'react-tooltip';

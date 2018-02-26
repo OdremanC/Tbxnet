@@ -10,10 +10,10 @@ import  Modal from '../Global/ModalComponent/Modal';
 import { getValueLogin, getUserIdFromCookie } from '../Global/Functions/';
 //tooltips
 import ReactTooltip from 'react-tooltip';
-import Table from './Tablas/tablaMenu';
-import Formulario from './Formularios/';
+import Table from './tablaMenu';
+import Formulario from './fomularioMenu';
 import * as actions from './actions';
-import './css/menuComp.css';
+import './menuComp.css';
 
 class MenuData extends Component{
   constructor(props){
@@ -111,8 +111,8 @@ const element = <Formulario passDataToParent = {this.getDataFormChild} putCloseM
       <Modal className="modal"
           show={this.state.isOpen}
           onClose={this.closeModal}
-          children = {element}
-          title= "Add Urls" 
+          children={element}
+          title= "Add Urls"
         />
       </div>
     );
