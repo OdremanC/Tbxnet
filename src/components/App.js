@@ -7,7 +7,7 @@ import Content from './Global/Content';
 import Footer from './Global/Footer';
 import Navbar from './Global/Navbar';
 import Menu from './Global/Menu';
-
+import { Link, withRouter } from 'react-router-dom';
 import { getValueLogin } from './Global/Functions/';
 
 
@@ -26,7 +26,7 @@ class App extends Component {
 
   render() {
     const { children } = this.props;
-
+    
     return (
       <div className="App">
         <Header title="React Api Test"/>
@@ -39,4 +39,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
