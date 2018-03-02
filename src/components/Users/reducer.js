@@ -8,7 +8,9 @@ const initialState = {
 	singleUser: [],
 	isLogged:false,
 	errorLogin: '',
-	errorSubmit:''
+	errorSubmit:'',
+	allProfiles: [],
+	perfilLog:[]
 }
 
 export default function usersData(state = initialState, action){
@@ -72,6 +74,24 @@ export default function usersData(state = initialState, action){
 				errorLogin: "Los datos no son correctos"
 			});
 		}
+		case "GET_PROFILES_SUCCESS": {
+			const { payload: {response = [] }} = action;
+			return getNewState(state, {
+				allProfiles: action.payload
+			});
+		}
+		case "CLEAN_STATE": {
+			return getNewState(state, {
+				singleUser: action.payload
+			});
+		}
+		case "GET_USER_LOGIN_PERFIL_SUCCESS":{
+      const { payload: { response = [] }} = action;
+      
+      return getNewState(state, {
+        perfilLog: action.payload
+      });
+    }
     	default:
       	return state;	
 		}

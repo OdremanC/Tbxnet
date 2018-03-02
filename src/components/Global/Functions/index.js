@@ -1,5 +1,6 @@
 //cookies
 import Cookies from 'universal-cookie';
+import GlobalApi from './api';
 const cookies = new Cookies();
 
 export function getValueLogin (){
@@ -31,12 +32,13 @@ export function getUserIdFromCookie (){
     }
 }
 
-export function getAlbumID (){
-    if (cookies.get('albumSelected')) {
-        if (cookies.get('albumSelected').albumID !== '') {
-            return cookies.get('albumSelected').albumID;
+export function getPerfil (){
+    if (cookies.get('isLogged')) {
+        if (cookies.get('isLogged').userPerfil !== '') {
+            return cookies.get('isLogged').userPerfil;
         }else{
           return false;
         }
     }
 }
+

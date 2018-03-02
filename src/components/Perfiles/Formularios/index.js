@@ -55,7 +55,11 @@ componentWillReceiveProps(nextProps){
   }
 }
 componentWillMount(){
-
+  
+  if (getValueLogin() !== true) {
+    this.props.history.push('/login');
+  }
+  
   this.setState({
     perfil:'',
     seccion: [{ url: '' , title:'' }]
@@ -74,8 +78,8 @@ componentDidMount(){
 
 
 componentDidUpdate(prevProps, prevState){
-  console.log(prevProps)
-  console.log(prevState)
+  //console.log(prevProps)
+  //console.log(prevState)
 }
 
 

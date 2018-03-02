@@ -9,6 +9,7 @@ import './users.css';
 import { Link } from 'react-router-dom'; 
 import * as actions from './actions';
 
+
 class Formulario extends Component{
 	
 	constructor(props,context){
@@ -22,6 +23,7 @@ class Formulario extends Component{
 			password:'',
 			editID:'',
 			perfil:'',
+			userProfile:[],
 			valor: undefined
 		};
 		this.handleChange = this.handleChange.bind(this);
@@ -68,14 +70,15 @@ class Formulario extends Component{
 					lastName : event.target.value
 				});
 				break;
-			default:
-				this.setState({value: event.target.value});
+			case "perfiles":
+				this.setState({perfil: event.target.value});
 				break
 		}
 	}
 	componentWillReceiveProps(nextProps){
 		
-		if (nextProps.dataToEdit) {
+		if (nextProps.dataToEdit !== undefined) {
+
 			this.setState({
 				firstName: nextProps.dataToEdit.firstName,
 				lastName: nextProps.dataToEdit.lastName,
@@ -89,11 +92,12 @@ class Formulario extends Component{
 	}
 
 	componentDidMount(){
-		
+		this.props.getProfiles();
 		if (this.props.match.params.id !== undefined) {
 			const query = this.props.match.params.id;
 			this.props.getUser(query);
 		}
+
 		if (this.props.dataToEdit) {
 			this.setState({
 				firstName: this.props.dataToEdit.firstName,
@@ -116,7 +120,40 @@ class Formulario extends Component{
 			editID:'',
 			perfil:''
 		});
+		this.props.cleanState();
 		this.props.history.push("/Users");
+	}
+		getDataToSend = () =>{
+    	
+    const query = this.state.editID;
+    
+    const data = {
+    	firstName: this.state.firstName,
+    	lastName: this.state.lastName,
+      userName: this.state.userName,
+      email: this.state.email,
+      password: this.state.password,
+      perfil: this.state.perfil
+    }
+    
+    if (query === undefined) {
+    	this.props.AddUser(data).then(response =>{
+    		if (response) {
+    			this.props.history.push("/Users");
+    		}
+    	});
+    }else{
+      	this.props.editUserData(query,data).then(response =>{
+    		if (response) {
+    			this.props.history.push("/Users");
+    		}
+    	});
+    }
+    
+    this.setState({ 
+    	isOpen: false,
+    	editData: {}
+    });
 	}
 
 	render(){
@@ -124,50 +161,47 @@ class Formulario extends Component{
 		const valor = this.props.perfiles.find(element => {
   		return element._id === this.state.perfil;
 		});
-		console.log(valor)
-
+		
 		return(	
 			<div className="col-6 formAdd">
 			<Panel bsStyle="default">
 			<Panel.Heading>
 			<Panel.Title componentClass="h3">Cargar usuarios</Panel.Title>
 			</Panel.Heading>
-				<Panel.Body>
+			<Panel.Body>
 			<form className="form" >
-			 <FormGroup>
-          
-			  <input type="hidden" id ="editID" value={this.state.editID} name="editID" />
-			  <label htmlFor="firstName"> Nombre:</label>
-			  <input type="text" className="form-control " id="firstName" placeholder="Nombre..." value={this.state.firstName}  onChange={this.handleChange} />
-			  <label htmlFor="lastName"> Apellido:</label>
-			  <input type="text" className="form-control " id="lastName" placeholder="Apellido..." value={this.state.lastName}  onChange={this.handleChange} />
-			  <label htmlFor="perfil"> Perfil:</label>
-			  <select id="perfiles" className="form-control">
-			  {
-			  	valor != undefined ? <option value={valor._id}>{valor.perfilName}</option>	: <option value="">Seleccione</option>
-			  }
-			  
-			  
-			  {
-			  	this.props.perfiles && this.props.perfiles.map((perfil,key) =>(
-            <option key={key} value={perfil._id} >{perfil.perfilName}</option>
-          ))
-			  }
-			  </select>
-			  <label htmlFor="UserName"> Usario:</label>
-			  <input type="text" className="form-control " id="userName" placeholder="userName..." value={this.state.userName}  onChange={this.handleChange} />
-			  <label htmlFor="apellido">Email:</label>
-			  <input type="email" className="form-control" id="email" placeholder="Email..." value={this.state.email}  onChange={this.handleChange} />
-			  <label htmlFor="pass">Password:</label>
-			  <input type="password" className="form-control" id="password" placeholder="password..." value={this.state.password}  onChange={this.handleChange} />
-       <FormControl.Feedback />   
+			 	<FormGroup>  
+				  <input type="hidden" id ="editID" value={this.state.editID} name="editID" />
+				  <label htmlFor="firstName"> Nombre:</label>
+				  <input type="text" className="form-control " id="firstName" placeholder="Nombre..." value={this.state.firstName}  onChange={this.handleChange} />
+				  <label htmlFor="lastName"> Apellido:</label>
+				  <input type="text" className="form-control " id="lastName" placeholder="Apellido..." value={this.state.lastName}  onChange={this.handleChange} />
+				  <label htmlFor="perfil"> Perfil:</label>
+				  <select id="perfiles" className="form-control" onChange={this.handleChange}>
+				  {
+				  	valor != undefined ? <option value={valor._id}>{valor.perfilName}</option>	: <option value="">Seleccione</option>
+				  }
+				  
+				  {
+				  	this.props.perfiles && this.props.perfiles.map((perfil,key) =>(
+	            <option key={key} value={perfil._id} >{perfil.perfilName}</option>
+	          ))
+				  }
+				  </select>
+				  <label htmlFor="UserName"> Usario:</label>
+				  <input type="text" className="form-control " id="userName" placeholder="userName..." value={this.state.userName}  onChange={this.handleChange} />
+				  <label htmlFor="apellido">Email:</label>
+				  <input type="email" className="form-control" id="email" placeholder="Email..." value={this.state.email}  onChange={this.handleChange} />
+				  <label htmlFor="pass">Password:</label>
+				  <input type="password" className="form-control" id="password" placeholder="password..." value={this.state.password}  onChange={this.handleChange} />
+	      <FormControl.Feedback />   
       </FormGroup>
 			</form>
 			</Panel.Body>
 			<Panel.Footer>
 			<div className="row">
 			  	<div className="col-md-6 ">
-				  	<button className ="btn btn-success formButton" onClick={() => {this.props.passDataToParent(this.state)}}>Guardar</button>
+				  	<button className ="btn btn-success formButton" onClick={this.getDataToSend}>Guardar</button>
 					</div>
 					<div className="col-md-6" >
 						<button onClick={this.cancelar} className ="btn btn-danger formButton" >Cancelar</button>
@@ -180,6 +214,6 @@ class Formulario extends Component{
 	}
 }
 export default connect(state =>({
-perfiles: state.perfileReducer.perfiles,
-dataToEdit: state.usersData.singleUser
+	dataToEdit: state.usersData.singleUser,
+	perfiles: state.usersData.allProfiles
 }),actions)(Formulario);

@@ -36,6 +36,7 @@ class Users extends Component {
 	
   componentDidMount(){
     this.props.getAllUsers();
+    this.props.getProfiles();
   }
 
 	openModal =() =>{
@@ -60,40 +61,19 @@ class Users extends Component {
     const userID = event;
     this.props.history.push("/addUser/"+userID)
   }
-	getDataFormChild = (dataFromForm) =>{
-    	
-    const query = dataFromForm.editID;
-
-    const data = {
-    	firstName: dataFromForm.firstName,
-    	lastName: dataFromForm.lastName,
-      userName: dataFromForm.userName,
-      email: dataFromForm.email,
-      password: dataFromForm.password
-    }
-    if (query === undefined) {
-    	this.props.AddUser(data);
-    }else{
-      	this.props.editUserData(query,data);
-    }
-    
-    this.setState({ 
-      	isOpen: false,
-      	editData: {}
-    });
-	}
-
 
 	render(){
 		
 		const { DataUsers } = this.props;
+
 		const cabeceras = [
 	      {key:1,nombre:"ID"},
 	      {key:2,nombre:'First Name'},
 	      {key:3,nombre:'Last Name'},
 	      {key:4,nombre: "UserName"},
 	      {key:5,nombre: "Email"},
-	      {key:6,nombre: "Acciones"}
+        {key:6,nombre: "Perfil"},
+	      {key:7,nombre: "Acciones"}
 	   ];
 	 
 		return (
@@ -107,6 +87,7 @@ class Users extends Component {
         	handleEliminar = {e =>this.handleEliminarItem(e)}
         	handleEditar = {e =>this.handleEditarIndex(e)}
           singleParam={e=>{this.singleClient(e)}}
+          profiles={this.props.perfiles}
 			>
 			</Table>
 			</div>
@@ -114,5 +95,6 @@ class Users extends Component {
 	}
 }
 export default connect(state => ({
-	DataUsers: state.usersData.users
+	DataUsers: state.usersData.users,
+  perfiles: state.usersData.allProfiles
 }), actions)(Users);

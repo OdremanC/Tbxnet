@@ -1,6 +1,6 @@
 // Dependencies
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch,Redirect } from 'react-router-dom';
 //Manejo de props
 import PropTypes  from 'prop-types';
 //conexion a redux
@@ -18,9 +18,16 @@ import Menu from './components/Menu';
 import Config from './components/Config';
 import Perfiles from './components/Perfiles';
 import addPerfiles  from './components/Perfiles/Formularios/';
+import * as actions from './components/Users/actions';
+import requiresAuth from './components/Global/WithValidation';
+
+
+import { getValueLogin, getUserNameLogin, getPerfil,checkPermission } from './components/Global/Functions/';
+
 
 
 //CONFIGIRACION DE RUTAS DE LA APLICACION
+
 const AppRoutes = () =>
   
   <App>
@@ -31,7 +38,7 @@ const AppRoutes = () =>
       <Route exact path="/User" component={Usuario} />
       <Route exact path="/addUser" component={AddUser} />
       <Route exact path="/addUser/:id" component={AddUser} />
-      <Route exact path="/Config" component={Config} />
+      <Route exact path="/Config" component={requiresAuth(Config)} />
       <Route exact path="/menu" component={Menu} />
       <Route exact path="/Perfiles" component={Perfiles} />
       <Route exact path="/addPerfil" component={addPerfiles} />

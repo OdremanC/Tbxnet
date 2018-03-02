@@ -29,6 +29,11 @@ class ProfilePage extends Component{
 		dataProfile: PropTypes.array
 	}
 
+	componentWillMount(){
+		if (getValueLogin() !== true) {
+     	this.props.history.push('/login');
+    }
+	}
 	componentDidMount(){
 		const query = getUserNameLogin();
 		this.props.getUserProfile(query);

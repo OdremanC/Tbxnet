@@ -6,13 +6,16 @@ export const API = Object.freeze({
     SETLOGIN: '/users/',
     ADD: '/users',
     EDIT: '/users/',
-    GETSINGLE: '/users/userName/'
+    GETSINGLE: '/users/userName/',
+    GETPROFILES: '/perfiles',
+    PERFIL: '/perfiles/'
   },
   MENU:{
     GETMENU: '/menu',
     ADD: '/menu',
     DELETE: '/menu/',
     UPDATE: '/menu/'
+   
   },
   PERFILES:{
     ALLPERFILES: '/perfiles',
@@ -20,5 +23,8 @@ export const API = Object.freeze({
     DELETE: '/perfiles/',
     GETSINGLE: '/perfiles/',
     UPDATE: '/perfiles/'
+  },
+  GLOBAL:{
+    GETSECTIONS: '/perfiles/'
   }
 });

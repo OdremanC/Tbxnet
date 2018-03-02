@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes  from 'prop-types';
 import './menuComp.css';
-
+import { getValueLogin, getUserNameLogin, getPerfil } from '../Global/Functions/';
 
 
 class Formulario extends Component{
@@ -23,7 +23,12 @@ class Formulario extends Component{
 
 
   }
-componentDidMount(){
+  componentWillMount(){
+    if (getValueLogin() !== true) {
+      this.props.history.push('/login');
+    }
+  }
+  componentDidMount(){
     this.setState({
       title: this.props.dataToEdit.title,
       url: this.props.dataToEdit.url,

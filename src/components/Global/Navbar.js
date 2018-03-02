@@ -6,11 +6,10 @@ import { connect } from 'react-redux';
 //cookies
 import Cookies from 'universal-cookie';
 
-import * as actions from '../Menu/actions';
-import { getValueLogin, getUserNameLogin } from '../Global/Functions/';
+import * as actions from '../Users/actions';
+import { getValueLogin, getUserNameLogin, getPerfil } from '../Global/Functions/';
 
 const cookies = new Cookies();
-
 
 // Assets
 import './css/Navbar.css';
@@ -20,23 +19,19 @@ class Navbar extends Component {
     super(props);
     
     this.state = {
-      dataMenu: [],
+      dataMenu: {},
       isLogin: false,
       userName:''
     }
+    const query = getPerfil();
+    if(query){
+      this.props.getUserLogingPerfil(query);
+    }
   }
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    items: PropTypes.array.isRequired
+    title: PropTypes.string.isRequired
   };
-   componentWillReceiveProps(nextProps){
-      
-      
-  }
-  componentDidMount(){
-    this.props.getAllMenu();
-  }
-
+  
   logout = (event)=>{
     event.preventDefault();
     if (cookies.get('isLogged').isLogged) {
@@ -44,12 +39,22 @@ class Navbar extends Component {
      window.location.assign("http://localhost:3000/login")
     }
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.menuData){
+      this.setState({ dataMenu: nextProps.menuData.sections})
+    }
+  }
+  componentWillMount(){
+    const query = getPerfil();
+    if(query){
+      this.props.getUserLogingPerfil(query);
+    }
+  }
   
   render() {
-
-    const { title, items,logueado } = this.props;
-    const { userName,isLogin } =this.state;  
-    
+   
+    const { title, items,logueado, menuData } = this.props;
+    const { userName,isLogin,dataMenu } =this.state;  
 
     return (
       <nav className="navbar navbar-expand-lg navbar-inverse">
@@ -59,7 +64,7 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
               {
-                getValueLogin() && this.props.menuData.map(
+                getValueLogin() && menuData.sections && menuData.sections.map(
                   (item, key) => <li key={key} className="nav-li"><Link className="link-nav" to={item.url}>{item.title}</Link></li>
                 )
               }
@@ -77,6 +82,6 @@ class Navbar extends Component {
 }
 
 export default withRouter(connect(state=>({
-  routes: state.router,
-  menuData: state.menuReducer.menuData
+  menuData: state.usersData.perfilLog,
+  routes: state.router
 }),actions)(Navbar));

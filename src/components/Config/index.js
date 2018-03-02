@@ -43,4 +43,4 @@ class Config extends Component{
     );
   }
 }
-export default Config;
+export default (Config);

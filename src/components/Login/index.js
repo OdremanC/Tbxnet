@@ -6,7 +6,7 @@ import { Link,withRouter } from 'react-router-dom';
 import { PropTypes,instanceOf}  from 'prop-types';
 //conexion a redux
 import { connect } from 'react-redux';
-import { getValueLogin } from '../Global/Functions/';
+import { getValueLogin,getPerfil } from '../Global/Functions/';
 //form
 import FormLogin from './Formularios/formLogin';
 
@@ -34,6 +34,7 @@ class Login extends Component{
 			this.props.history.push('/');
 		}
 	}
+	
 
 	getDataFromForm = (formValues) => {
   	const query = formValues.usuario;
@@ -41,7 +42,13 @@ class Login extends Component{
     	userName:formValues.usuario,
     	password: formValues.password
     };
-  	this.props.setLogin(query,data);
+  	this.props.setLogin(query,data).then(response => {
+  		if(response.value.userProfile){
+  			const query = response.value.userProfile;
+  			this.props.getUserLogingPerfil(query);
+  			this.props.history.push("/");
+  		}
+  	});
 	}
 	
 	render(){	

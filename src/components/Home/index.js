@@ -10,7 +10,6 @@ import  Modal from '../Global/ModalComponent/Modal';
 //import  FormsBuilder from '../Global/Modal';
 //import  Table from './tableComponents/TableGenerator';
 
-
 import { getValueLogin,getUserIdFromCookie } from '../Global/Functions/';
 //formulario
 //import Formulario from './Formularios/formClientes';
@@ -79,6 +78,6 @@ class Home extends Component {
   }
 }
 //conectamos con redux
-export default connect(state => ({
- 
+export default connect(state => ({ 
+  menuData: state.usersData.perfilLog
 }))(Home);

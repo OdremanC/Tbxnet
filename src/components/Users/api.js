@@ -24,15 +24,23 @@ class UsersApi {
   }
   static addNewUser(data){
     const method = "POST";
-    return apiFetch(API.USERS.ADD,{},'',data,method)
+    return apiFetch(API.USERS.ADD,{},'',data,method);
   }
   static editUsers(query,data){
     const method = "PUT";
-    return apiFetch(API.USERS.EDIT,{},query,data, method)
+    return apiFetch(API.USERS.EDIT,{},query,data, method);
   }
   static getSingleUserProfile(query){ 
     const method = "GET";
-    return apiFetch(API.USERS.GETSINGLE,{},query,'', method) 
+    return apiFetch(API.USERS.GETPROFILE,{},query,'', method); 
+  }
+  static getAllProfiles(){
+    const method = "GET";
+    return apiFetch(API.USERS.GETPROFILES,{},'','',method);
+  }
+   static getPerfilLogin(query){
+    const method = "GET";
+    return apiFetch(API.USERS.PERFIL,{},query,'',method);
   }
 }
 export default UsersApi;

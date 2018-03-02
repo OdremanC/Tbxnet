@@ -46,6 +46,7 @@ export default function menuReducer(state = initialState, action){
           menuData: dataToChange
       });
     }
+    
     default:
         return state; 
     }

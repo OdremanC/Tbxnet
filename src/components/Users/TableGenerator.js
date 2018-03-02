@@ -35,7 +35,7 @@ class Table  extends Component {
 
     render(){
       
-      const { cabeceras, tableData } = this.props;
+      const { cabeceras, tableData, profiles } = this.props;
       const { data, numberPage, dataPerPage} = this.state;
 
       const indexOfLastTodo = numberPage * dataPerPage;
@@ -65,6 +65,15 @@ class Table  extends Component {
                     <td>{DataUsers.lastName}</td>
                     <td>{DataUsers.userName}</td>
                     <td>{DataUsers.email}</td>
+                    <td>
+                    {
+                     profiles && profiles.map((value,index) =>{
+                      if (value._id === DataUsers.perfil) {
+                        return value.perfilName;
+                      }
+                     }) 
+                    }
+                    </td>
                     <td>
                       <button className="btn btn-warning boton" id={DataUsers._id} onClick={(event)=>this.props.handleEditar(event.target.id)}>Editar</button>
                       <button className="btn btn-danger boton" id={DataUsers._id} onClick={(event)=>this.props.handleEliminar(DataUsers._id)}>Eliminar</button>

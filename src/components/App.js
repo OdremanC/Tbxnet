@@ -6,7 +6,10 @@ import Header from './Global/Header';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
 import Navbar from './Global/Navbar';
-import Menu from './Global/Menu'
+import Menu from './Global/Menu';
+
+import { getValueLogin } from './Global/Functions/';
+
 
 // Data
 import items from '../data/menu';
@@ -15,6 +18,11 @@ class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired
   };
+  componentWillMount(){
+    if (getValueLogin() !== true) {
+      this.props.history.push('/login');
+    }
+  }
 
   render() {
     const { children } = this.props;
@@ -22,11 +30,10 @@ class App extends Component {
     return (
       <div className="App">
         <Header title="React Api Test"/>
-        <Navbar title="React Api Test" items={items}/>
+        <Navbar title="TBXNET - Gestion"/>
         <Content>
           {children}
         </Content>
-        
       </div>
     );
   }

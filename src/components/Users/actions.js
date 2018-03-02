@@ -11,6 +11,9 @@ const SET_LOGGIN_USER = "SET_LOGGIN_USER";
 const ADD_NEW_USER = "ADD_NEW_USER";
 const EDIT_USER = "EDIT_USER";
 const GET_USER_PROFILE = "GET_USER_PROFILE";
+const GET_PROFILES = "GET_PROFILES";
+const CLEAN_STATE = "CLEAN_STATE";
+const GET_USER_LOGIN_PERFIL = "GET_USER_LOGIN_PERFIL";
 
 
 export function getAllUsers(){
@@ -45,15 +48,17 @@ export function setLogin(query,data){
   
 	const service = UsersApi.setLogginUser(query,data);
 	service.then(response => {
-
+    
 		if (response) {
 			const dataUser = {
         userID: response.userID,
-    		userName: data.userName, 
+    		userName: data.userName,
+        userPerfil: response.userProfile, 
     		isLogged:true
     	};
+       
     	const fecha = new Date();
-			fecha.setMinutes(fecha.getMinutes() + 30);
+			fecha.setMinutes(fecha.getMinutes() + 60);
     	cookies.set('isLogged',dataUser , { path: '/', expires:fecha });
 		}
   });
@@ -81,4 +86,22 @@ export function getUserProfile(query){
 		type: GET_USER_PROFILE,
 		payload: UsersApi.getSingleUserProfile(query)
 	}
+}
+export function getProfiles(){
+  return{
+    type: GET_PROFILES,
+    payload: UsersApi.getAllProfiles()
+  }
+}
+export function cleanState(){
+  return{
+    type: CLEAN_STATE,
+    payload: []
+  }
+}
+export function getUserLogingPerfil(query){
+  return{
+    type: GET_USER_LOGIN_PERFIL,
+    payload: UsersApi.getPerfilLogin(query)
+  }
 }
