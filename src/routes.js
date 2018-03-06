@@ -14,10 +14,10 @@ import Login from './components/Login';
 import Page404 from './components/Page404';
 import Usuario from './components/Users/user';
 import AddUser from './components/Users/formUsers'
-import Menu from './components/Menu';
+import Secciones from './components/Secciones';
 import Config from './components/Config';
 import Perfiles from './components/Perfiles';
-import addPerfiles  from './components/Perfiles/Formularios/';
+import addPerfiles  from './components/Perfiles/FormAddPerfil';
 import * as actions from './components/Users/actions';
 import requiresAuth from './components/Global/WithValidation';
 
@@ -38,8 +38,8 @@ const AppRoutes = () =>
       <Route exact path="/User" component={Usuario} />
       <Route exact path="/addUser" component={AddUser} />
       <Route exact path="/addUser/:id" component={AddUser} />
-      <Route exact path="/Config" component={requiresAuth(Config)} />
-      <Route exact path="/menu" component={Menu} />
+      <Route exact path="/Config" component={Config} />
+      <Route exact path="/Secciones" component={Secciones} />
       <Route exact path="/Perfiles" component={Perfiles} />
       <Route exact path="/addPerfil" component={addPerfiles} />
       <Route exact path="/addPerfil/:id" component={addPerfiles} />

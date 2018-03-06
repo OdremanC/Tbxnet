@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'; 
 import PropTypes  from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
-import '../css/perfiles.css';
-import Alerts from '../../Global/alerts';
-import { getValueLogin } from '../../Global/Functions/';
+import * as actions from './actions';
+import './perfiles.css';
+import Alerts from '../Global/alerts';
+import { getValueLogin } from '../Global/Functions/';
 
 
 class Formulario extends Component{
@@ -17,7 +17,7 @@ class Formulario extends Component{
     this.state = {
       perfil: '',
       editID:'',
-      seccion: [{ url: '' , title:'' }],
+      seccion: [{ url: '' , title:'', menu: false }],
       message: '',
       alertTipo: '',
       disabled:true
@@ -25,63 +25,63 @@ class Formulario extends Component{
    
   }
   
-static propTypes = {
-}
+  static propTypes = {
 
-componentWillReceiveProps(nextProps){
-  if (getValueLogin() !== true) {
-      this.props.history.push('/login');
-  }
-  if (nextProps.perfil.perfilName !== undefined) {
-    this.setState({
-      editID: nextProps.perfil._id,
-      perfil: nextProps.perfil.perfilName,
-      seccion: nextProps.perfil.sections
-    });
   }
 
-  if (nextProps.mensaje !== undefined) {
-    this.setState({
-      message: nextProps.mensaje.message,
-      alertTipo: nextProps.mensaje.tipo
-    });
+  componentWillReceiveProps(nextProps){
+    if (getValueLogin() !== true) {
+        this.props.history.push('/login');
+    }
+    if (nextProps.perfil.perfilName !== undefined) {
+      this.setState({
+        editID: nextProps.perfil._id,
+        perfil: nextProps.perfil.perfilName,
+        seccion: nextProps.perfil.sections
+      });
+    }
 
-    if(nextProps.mensaje.tipo ==='success'){
-      setTimeout(() =>{ 
-        this.props.history.push("/perfiles"); 
-      }, 2000);
-      
+    if (nextProps.mensaje !== undefined) {
+      this.setState({
+        message: nextProps.mensaje.message,
+        alertTipo: nextProps.mensaje.tipo
+      });
+
+      if(nextProps.mensaje.tipo ==='success'){
+        setTimeout(() =>{ 
+          this.props.history.push("/perfiles"); 
+        }, 2000);
+        
+      }
     }
   }
-}
-componentWillMount(){
-  
-  if (getValueLogin() !== true) {
-    this.props.history.push('/login');
-  }
-  
-  this.setState({
-    perfil:'',
-    seccion: [{ url: '' , title:'' }]
-  });
-}
-componentDidMount(){
-  if (this.props.match.params.id) {
-    const query = this.props.match.params.id;  
-    this.props.getSingle(query).then(response=>{
-      if(response.value.mensaje.tipo ==="success"){
-        this.props.resetAlerts();
-      }
+  componentWillMount(){
+    
+    if (getValueLogin() !== true) {
+      this.props.history.push('/login');
+    }
+    
+    this.setState({
+      perfil:'',
+      seccion: [{ url: '' , title:'', menu: false }]
     });
   }
-}
+  componentDidMount(){
+    if (this.props.match.params.id) {
+      const query = this.props.match.params.id;  
+      this.props.getSingle(query).then(response=>{
+        if(response.value.mensaje.tipo ==="success"){
+          this.props.resetAlerts();
+        }
+      });
+    }
+  }
 
 
-componentDidUpdate(prevProps, prevState){
-  //console.log(prevProps)
-  //console.log(prevState)
-}
-
+  componentDidUpdate(prevProps, prevState){
+    //console.log(prevProps)
+    //console.log(prevState)
+  }
 
 
   handleChange = (event) =>{
@@ -140,7 +140,7 @@ componentDidUpdate(prevProps, prevState){
   render(){
     const { secciones,mensaje } = this.props;
     
-    
+    console.log(this.props)
     return( 
       <div className="col-8 formulario">
         <form className="form">
@@ -193,7 +193,7 @@ componentDidUpdate(prevProps, prevState){
   }
 }
 export default connect(state=>({
-secciones: state.menuReducer.menuData,
+secciones: state.sectionsReducer.secciones,
 mensaje: state.perfileReducer.alert,
 perfil: state.perfileReducer.perfil
 

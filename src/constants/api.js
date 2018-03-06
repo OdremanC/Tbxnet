@@ -10,11 +10,11 @@ export const API = Object.freeze({
     GETPROFILES: '/perfiles',
     PERFIL: '/perfiles/'
   },
-  MENU:{
-    GETMENU: '/menu',
-    ADD: '/menu',
-    DELETE: '/menu/',
-    UPDATE: '/menu/'
+  SECCIONES:{
+    GETALLSECTIONS: '/secciones',
+    ADD: '/secciones',
+    DELETE: '/secciones/',
+    UPDATE: '/secciones/'
    
   },
   PERFILES:{

@@ -12,9 +12,6 @@ export default [
     title: 'Tareas Asignadas',
     url: '/asignadas'
   },{
-  	title: 'Users',
-  	url: '/Users'
-  },{
     title: 'Config',
     url:'/Config'
   }

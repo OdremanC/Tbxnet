@@ -10,12 +10,12 @@ import  Modal from '../Global/ModalComponent/Modal';
 import { getValueLogin, getUserIdFromCookie } from '../Global/Functions/';
 //tooltips
 import ReactTooltip from 'react-tooltip';
-import Table from './tablas/tablaPerfiles';
-import Formulario from './Formularios/';
+import Table from './tablaPerfiles';
+
 import * as actions from './actions';
 import Alerts from '../Global/alerts';
 import * as FontAwesome from 'react-icons/lib/fa';
-import './css/perfiles.css';
+import './perfiles.css';
 
 class Perfiles extends Component{
   constructor(props){
@@ -79,7 +79,7 @@ class Perfiles extends Component{
         {key:4,nombre: "Acciones"}
      ];
     const  { dataToModal } = this.props;
-    const formulario = <Formulario passDataToParent = {this.getDataFormChild} putCloseModal = {this.closeModal} dataToEdit={this.state.editData}></Formulario>;
+    
 
     return(
       <div className="Perfiles">

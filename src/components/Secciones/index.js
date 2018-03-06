@@ -55,7 +55,7 @@ class MenuData extends Component{
 
   handleEditarIndex = (event) => {
     const menuID = event;
-    var resultObject = this.props.menuData.find(function(menu){
+    var resultObject = this.props.secciones.find(function(menu){
       return menu._id === menuID;
     });
 
@@ -102,7 +102,7 @@ const element = <Formulario passDataToParent = {this.getDataFormChild} putCloseM
       
       <Table className="tabla"
         cabeceras ={cabeceras}
-          tableData ={this.props.menuData}
+          tableData ={this.props.secciones}
           handleEliminar = {e =>this.handleEliminarItem(e)}
           handleEditar = {e =>this.handleEditarIndex(e)}
           singleParam={e=>{this.singleClient(e)}}
@@ -119,5 +119,5 @@ const element = <Formulario passDataToParent = {this.getDataFormChild} putCloseM
   }
 }
 export default connect(state=>({
-  menuData: state.menuReducer.menuData
+  secciones: state.sectionsReducer.secciones
 }),actions)(MenuData);

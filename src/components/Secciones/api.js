@@ -5,22 +5,22 @@ import { API } from '../../constants/api';
 import { apiFetch } from '../../lib/utils/api';
 
 
-class MenuApi {
+class SectionApi {
   static getMenuData() {
     const method = "GET";
-    return apiFetch(API.MENU.GETMENU,{},'','',method);
+    return apiFetch(API.SECCIONES.GETALLSECTIONS,{},'','',method);
   }
   static addNewData(data){
     const method = "POST";
-    return apiFetch(API.MENU.ADD,{},'',data,method);
+    return apiFetch(API.SECCIONES.ADD,{},'',data,method);
   }
   static deleteMenuSection(query){
     const method = "DELETE";
-    return apiFetch(API.MENU.DELETE,{},query,'',method);
+    return apiFetch(API.SECCIONES.DELETE,{},query,'',method);
   }
   static editMenuSection(query,data){
     const method = "PUT";
-    return apiFetch(API.MENU.UPDATE,{},query,data,method);
+    return apiFetch(API.SECCIONES.UPDATE,{},query,data,method);
   }
 }
-export default MenuApi;
+export default SectionApi;

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PropTypes  from 'prop-types';
 import { Link } from 'react-router-dom';
-import Paginador from '../../Global/Paginador';
+import Paginador from '../Global/Paginador';
 import * as FontAwesome from 'react-icons/lib/fa';
 
 class Table  extends Component {
@@ -20,6 +20,9 @@ class Table  extends Component {
   static propTypes = {
     tableData: PropTypes.array    
   };
+  componentWillReceiveProps(nextProps){
+    
+  }
 
   getDataPerPage = (event) =>{
     this.setState({
@@ -40,8 +43,8 @@ class Table  extends Component {
 
       const indexOfLastTodo = numberPage * dataPerPage;
       const indexOfFirstTodo = indexOfLastTodo - dataPerPage;
-      const currentData = tableData.slice(indexOfFirstTodo, indexOfLastTodo);
-
+      const currentData = tableData && tableData.slice(indexOfFirstTodo, indexOfLastTodo);
+      
       return(
         <div className="Table">
         <table className="table">
@@ -57,7 +60,7 @@ class Table  extends Component {
           </thead>
           <tbody>
             {
-              currentData.map((perfiles, key) => {
+             currentData.map((perfiles, key) => {
                 return (
                   <tr key={key}>
                     <td>{perfiles._id}</td>

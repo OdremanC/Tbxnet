@@ -79,5 +79,5 @@ class Home extends Component {
 }
 //conectamos con redux
 export default connect(state => ({ 
-  menuData: state.usersData.perfilLog
+
 }))(Home);

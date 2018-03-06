@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component } from 'react';  
+import React, { Component } from 'react';   
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -23,13 +23,10 @@ class Navbar extends Component {
       isLogin: false,
       userName:''
     }
-    const query = getPerfil();
-    if(query){
-      this.props.getUserLogingPerfil(query);
-    }
   }
   static propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired
   };
   
   logout = (event)=>{
@@ -39,21 +36,10 @@ class Navbar extends Component {
      window.location.assign("http://localhost:3000/login")
     }
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps.menuData){
-      this.setState({ dataMenu: nextProps.menuData.sections})
-    }
-  }
-  componentWillMount(){
-    const query = getPerfil();
-    if(query){
-      this.props.getUserLogingPerfil(query);
-    }
-  }
   
   render() {
    
-    const { title, items,logueado, menuData } = this.props;
+    const { title, items,logueado } = this.props;
     const { userName,isLogin,dataMenu } =this.state;  
 
     return (
@@ -64,7 +50,7 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
               {
-                getValueLogin() && menuData.sections && menuData.sections.map(
+                getValueLogin() && items && items.map(
                   (item, key) => <li key={key} className="nav-li"><Link className="link-nav" to={item.url}>{item.title}</Link></li>
                 )
               }
@@ -82,6 +68,5 @@ class Navbar extends Component {
 }
 
 export default withRouter(connect(state=>({
-  menuData: state.usersData.perfilLog,
   routes: state.router
 }),actions)(Navbar));

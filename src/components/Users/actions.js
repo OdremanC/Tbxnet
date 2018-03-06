@@ -17,13 +17,10 @@ const GET_USER_LOGIN_PERFIL = "GET_USER_LOGIN_PERFIL";
 
 
 export function getAllUsers(){
-  
-  return dispatch => {
-    return {
-      type: GET_ALL_USERS,
-      payload: UsersApi.getUsersData()
-    }
-  };  
+  return {
+    type: GET_ALL_USERS,
+    payload: UsersApi.getUsersData()
+  }
 }
 export function deleteUser(query){
 	return{
@@ -48,7 +45,6 @@ export function setLogin(query,data){
   
 	const service = UsersApi.setLogginUser(query,data);
 	service.then(response => {
-    
 		if (response) {
 			const dataUser = {
         userID: response.userID,

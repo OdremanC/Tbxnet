@@ -42,7 +42,7 @@ class Paginador extends Component{
 		const { pageNumber, currentPage, dataPerPage } = this.state;
 
 	    const pageNumbers = [];
-	    for (let i = 1; i <= Math.ceil(data.length / dataPerPage); i++) {
+	    for (let i = 1; i <= Math.ceil(data && data.length / dataPerPage); i++) {
 	      pageNumbers.push(i);
 	    }
 	    const renderPageNumbers = pageNumbers.map(number => {

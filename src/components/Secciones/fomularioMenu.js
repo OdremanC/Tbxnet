@@ -14,7 +14,8 @@ class Formulario extends Component{
     this.state = {
       title: '',
       url: '',
-      editID:''
+      editID:'',
+      chkbox: false
     };
    
   }
@@ -48,18 +49,35 @@ class Formulario extends Component{
           url : event.target.value
         });
         break;
+        case "checkbox":
+          if (this.state.chkbox === false) {
+            this.setState({
+              chkbox: true
+            });
+          }else{
+            this.setState({
+              chkbox: false
+            });
+          }
+        break;
     }
   }
 
 
   render(){
+    console.log(this.state)
     return( 
       <div className="contenForm"> 
-        <form className="form" >
+        <form className="form formularioSecciones" >
           <label htmlFor="Title"> Titulo:</label>
           <input type="text" className="form-control " id="title" placeholder="Titulo.." value={this.state.title}  onChange={this.handleChange} />
           <label htmlFor="url"> URL:</label>
           <input type="text" className="form-control " id="url" placeholder="URL...." value={this.state.url}  onChange={this.handleChange} />
+          <div className="checkbox">
+            <label className="chkbx">
+              <input type="checkbox" value={this.state.chkbox} onChange={this.handleChange} id="checkbox" /> Menu url?
+            </label>
+          </div>
           <div className="row">
             <div className="col-md-6 ">
               <button className ="btn btn-success formButton" onClick={() => {this.props.passDataToParent(this.state)}}>Guardar</button>

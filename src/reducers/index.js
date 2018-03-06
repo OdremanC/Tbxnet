@@ -10,7 +10,7 @@ import usersData from '../components/Users/reducer';
 import perfileReducer from '../components/Perfiles/reducer';
 
 //MENU
-import menuReducer from '../components/Menu/reducer';
+import sectionsReducer from '../components/Secciones/reducer';
 
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 
@@ -19,7 +19,7 @@ import device from './deviceReducer';
 
 const rootReducer = combineReducers({
   device,
-  menuReducer,
+  sectionsReducer,
   usersData,
   perfileReducer,
   router: routerReducer

@@ -4,26 +4,26 @@ import { getNewState } from '../../lib/utils/frontend';
 import * as actions from './actions';
 
 const initialState = {
-  menuData: []
+  secciones: []
 }
 
-export default function menuReducer(state = initialState, action){
-  const dataToChange = Object.assign([], state.menuData);
+export default function sectionsReducer(state = initialState, action){
+  const dataToChange = Object.assign([], state.secciones);
 
   switch(action.type){
 
-    case "GET_ALL_MENU_SUCCESS":{
+    case "GET_ALL_SECTIONS_SUCCESS":{
       const { payload: { response = [] }} = action;
 
       return getNewState(state, {
-        menuData: action.payload
+        secciones: action.payload
       });
     }
     case "ADD_NEW_SECTION_SUCCESS":{
       const { payload: { response = [] }} = action;
       const dataInsert = dataToChange.concat([action.payload]); 
       return getNewState(state, {
-        menuData: dataInsert
+        secciones: dataInsert
       });
     }
     case "DELETE_SECTION_SUCCESS":{
@@ -33,7 +33,7 @@ export default function menuReducer(state = initialState, action){
       });
       dataToChange.splice(index,1);
       return getNewState(state, {
-        menuData: dataToChange
+        secciones: dataToChange
       });
     }
     case "EDIT_SECTION_SUCCESS":{
@@ -43,7 +43,7 @@ export default function menuReducer(state = initialState, action){
       });
       dataToChange[index] = action.payload;
       return getNewState(state, {
-          menuData: dataToChange
+          secciones: dataToChange
       });
     }
     

@@ -13,10 +13,6 @@ import config from '../config';
 // Webpack Configuration
 import webpackConfig from '../../webpack.config.babel';
 
-// API
-import blogApi from './api/blog';
-import libraryApi from './api/library';
-
 // Helpers
 import * as hbsHelper from '../lib/handlebars';
 

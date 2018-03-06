@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header title="React Api Test"/>
-        <Navbar title="TBXNET - Gestion"/>
+        <Navbar title="TBXNET - Gestion" items={items}/>
         <Content>
           {children}
         </Content>
