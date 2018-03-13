@@ -52,6 +52,7 @@ class Home extends Component {
   }
 
   render() {
+
     //DATA DE CABECERAS DE LA TABLA
     const cabeceras = [
       {key:1,nombre:"ID"}
@@ -63,7 +64,7 @@ class Home extends Component {
         <div className="Home" >
           <button onClick={this.openModal} className= "btn btn-success">Add</button> 
           <div >
-             
+             <h5>Home</h5>
             <Modal 
               show={this.state.isOpen}
               onAfterOpen={this.afterOpenModal}
@@ -78,6 +79,4 @@ class Home extends Component {
   }
 }
 //conectamos con redux
-export default connect(state => ({ 
-
-}))(Home);
+export default Home;

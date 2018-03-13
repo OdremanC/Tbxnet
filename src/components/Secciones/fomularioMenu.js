@@ -30,9 +30,11 @@ class Formulario extends Component{
     }
   }
   componentDidMount(){
+
     this.setState({
       title: this.props.dataToEdit.title,
       url: this.props.dataToEdit.url,
+      chkbox: this.props.dataToEdit.menu,
       editID: this.props.dataToEdit._id
     });
   }
@@ -43,23 +45,23 @@ class Formulario extends Component{
         this.setState({
           title : event.target.value
         });
-        break;
+      break;
       case "url":
         this.setState({
           url : event.target.value
         });
-        break;
-        case "checkbox":
-          if (this.state.chkbox === false) {
-            this.setState({
-              chkbox: true
-            });
-          }else{
-            this.setState({
-              chkbox: false
-            });
-          }
-        break;
+      break;
+      case "checkbox":
+        if (this.state.chkbox === false) {
+          this.setState({
+            chkbox: true
+          });
+        }else{
+          this.setState({
+            chkbox: false
+          });
+        }
+      break;
     }
   }
 
@@ -75,15 +77,15 @@ class Formulario extends Component{
           <input type="text" className="form-control " id="url" placeholder="URL...." value={this.state.url}  onChange={this.handleChange} />
           <div className="checkbox">
             <label className="chkbx">
-              <input type="checkbox" value={this.state.chkbox} onChange={this.handleChange} id="checkbox" /> Menu url?
+              <input type="checkbox" value={this.state.chkbox} checked={this.state.chkbox} onChange={this.handleChange} id="checkbox" /> is a menu item?
             </label>
           </div>
           <div className="row">
             <div className="col-md-6 ">
-              <button className ="btn btn-success formButton" onClick={() => {this.props.passDataToParent(this.state)}}>Guardar</button>
+              <button type="button" className ="btn btn-success formButton" onClick={() => {this.props.passDataToParent(this.state)}}>Guardar</button>
             </div>
             <div className="col-md-6" >
-              <button  className ="btn btn-danger formButton" onClick={()=>this.props.putCloseModal(false)} >close</button>
+              <button type="button"  className ="btn btn-danger formButton" onClick={()=>this.props.putCloseModal(false)} >close</button>
             </div>
           </div>
         </form>

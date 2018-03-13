@@ -10,6 +10,7 @@ const DELETE_PERFIL = "DELETE_PERFIL";
 const GET_SINGLE_PERFIL = "GET_SINGLE_PERFIL";
 const UPDATE_PERFIL = "UPDATE_PERFIL";
 const RESET_ALERTS = "RESET_ALERTS";
+const RESET_PERFIL = "RESET_PERFIL";
 
 
 
@@ -50,6 +51,12 @@ export function updatePerfil(query,data){
 export function resetAlerts(){
   return{
     type: RESET_ALERTS,
+    payload: []  
+  }
+}
+export function resetPerfil(){
+  return{
+    type: RESET_PERFIL,
     payload: []  
   }
 }

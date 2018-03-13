@@ -67,13 +67,15 @@ class MenuData extends Component{
     };
   }
   getDataFormChild = (dataFromForm) =>{
-      
+      //console.log(dataFromForm)
+
     const query = dataFromForm.editID;
     const data = {
-
      title: dataFromForm.title,
-     url:dataFromForm.url
+     url:dataFromForm.url,
+     menu: dataFromForm.chkbox
     }
+    console.log(data)
     if (query === undefined) {
       this.props.addMenu(data);
     }else{
@@ -92,7 +94,8 @@ class MenuData extends Component{
         {key:1,nombre:"ID"},
         {key:2,nombre:'Title'},
         {key:3,nombre:'URL'},
-        {key:6,nombre: "Acciones"}
+        {key:4,nombre: 'Menu'},
+        {key:5,nombre: "Acciones"}
      ];
     
 const element = <Formulario passDataToParent = {this.getDataFormChild} putCloseModal = {this.closeModal} dataToEdit={this.state.editData}></Formulario>;

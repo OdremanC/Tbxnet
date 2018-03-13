@@ -26,12 +26,12 @@ export default function usersData(state = initialState, action){
 		}
 		case "DELETE_USER_SUCCESS":{
 			const { payload: { response = [] }} = action;
-			var index = editUser.findIndex((users)=>{
+			var index = dataUsers.findIndex((users)=>{
 		    return users._id === action.payload.users._id;
 		  });
-		  editUser.splice(index,1);
+		  dataUsers.splice(index,1);
 			return getNewState(state, {
-				users: editUser
+				users: dataUsers
 			});
 		}
 		case 'GET_USER_SUCCESS': { 

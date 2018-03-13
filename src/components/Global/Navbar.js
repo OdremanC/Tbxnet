@@ -21,13 +21,35 @@ class Navbar extends Component {
     this.state = {
       dataMenu: {},
       isLogin: false,
-      userName:''
+      userName:'',
+      secciones: []
     }
   }
   static propTypes = {
     title: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
   };
+componentWillReceiveProps(nextProps){
+    if (nextProps.perfil.sections) {
+      this.setState({
+        secciones:nextProps.perfil.sections
+      });
+    }
+  }
+  componentWillMount(){
+    if (getPerfil()) {
+      let userPerfil = getPerfil();
+      this.props.getUserLogingPerfil(userPerfil).then(response => {
+        if(response.value.perfilName){
+          this.setState({
+            secciones:response.value.sections
+          });
+        }
+      });
+    }
+  }
+
+  
   
   logout = (event)=>{
     event.preventDefault();
@@ -40,8 +62,8 @@ class Navbar extends Component {
   render() {
    
     const { title, items,logueado } = this.props;
-    const { userName,isLogin,dataMenu } =this.state;  
-
+    const { userName,isLogin,dataMenu,secciones } =this.state; 
+    
     return (
       <nav className="navbar navbar-expand-lg navbar-inverse">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,8 +72,10 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
               {
-                getValueLogin() && items && items.map(
-                  (item, key) => <li key={key} className="nav-li"><Link className="link-nav" to={item.url}>{item.title}</Link></li>
+                getValueLogin() && secciones && secciones.map(
+                  (item, key) => (
+                    item.menu ? <li key={key} className="nav-li"><Link className="link-nav" to={item.url}>{item.title}</Link></li> : null
+                  )
                 )
               }
           </ul>
@@ -68,5 +92,6 @@ class Navbar extends Component {
 }
 
 export default withRouter(connect(state=>({
-  routes: state.router
+  routes: state.router,
+  perfil: state.usersData.perfilLog
 }),actions)(Navbar));

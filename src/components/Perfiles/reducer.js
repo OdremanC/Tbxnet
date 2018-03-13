@@ -67,6 +67,11 @@ export default function perfileReducer(state = initialState, action){
         alert: action.payload
       });
     }
+    case "RESET_PERFIL":{
+      return getNewState(state, {
+        perfil: action.payload
+      });
+    }
 
       default:
         return state; 

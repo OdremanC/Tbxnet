@@ -19,7 +19,7 @@ import Config from './components/Config';
 import Perfiles from './components/Perfiles';
 import addPerfiles  from './components/Perfiles/FormAddPerfil';
 import * as actions from './components/Users/actions';
-import requiresAuth from './components/Global/WithValidation';
+import requiresAuth from './components/HOCs/WithValidation';
 
 
 import { getValueLogin, getUserNameLogin, getPerfil,checkPermission } from './components/Global/Functions/';
@@ -32,16 +32,17 @@ const AppRoutes = () =>
   
   <App>
     <Switch>
+      <Route exact path="/Home" component={requiresAuth(Home)} />
       <Route exact path="/" component={Home} />
-      <Route exact path="/Users" component={Users} />
+      <Route exact path="/Users" component={requiresAuth(Users)} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/User" component={Usuario} />
-      <Route exact path="/addUser" component={AddUser} />
+      <Route exact path="/User" component={requiresAuth(Usuario)} />
+      <Route exact path="/addUser" component={requiresAuth(AddUser)} />
       <Route exact path="/addUser/:id" component={AddUser} />
-      <Route exact path="/Config" component={Config} />
-      <Route exact path="/Secciones" component={Secciones} />
-      <Route exact path="/Perfiles" component={Perfiles} />
-      <Route exact path="/addPerfil" component={addPerfiles} />
+      <Route exact path="/Config" component={requiresAuth(Config)} />
+      <Route exact path="/Secciones" component={requiresAuth(Secciones)} />
+      <Route exact path="/perfiles" component={requiresAuth(Perfiles)} />
+      <Route exact path="/addPerfil" component={requiresAuth(addPerfiles)} />
       <Route exact path="/addPerfil/:id" component={addPerfiles} />
 
       <Route component={Page404} />

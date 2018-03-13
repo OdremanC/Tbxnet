@@ -46,7 +46,7 @@ class Login extends Component{
   		if(response.value.userProfile){
   			const query = response.value.userProfile;
   			this.props.getUserLogingPerfil(query);
-  			this.props.history.push("/");
+  			this.props.history.push("/Home");
   		}
   	});
 	}

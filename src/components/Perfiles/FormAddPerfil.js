@@ -7,6 +7,7 @@ import * as actions from './actions';
 import './perfiles.css';
 import Alerts from '../Global/alerts';
 import { getValueLogin } from '../Global/Functions/';
+import { getAllMenu } from '../Secciones/actions';
 
 
 class Formulario extends Component{
@@ -20,16 +21,18 @@ class Formulario extends Component{
       seccion: [{ url: '' , title:'', menu: false }],
       message: '',
       alertTipo: '',
-      disabled:true
+      disabled:true,
+      allSections: []
     };
    
   }
   
   static propTypes = {
-
+    
   }
 
   componentWillReceiveProps(nextProps){
+    
     if (getValueLogin() !== true) {
         this.props.history.push('/login');
     }
@@ -56,17 +59,22 @@ class Formulario extends Component{
     }
   }
   componentWillMount(){
-    
     if (getValueLogin() !== true) {
       this.props.history.push('/login');
     }
-    
+    this.props.resetAlerts();
     this.setState({
       perfil:'',
       seccion: [{ url: '' , title:'', menu: false }]
     });
   }
   componentDidMount(){
+    getAllMenu().payload.then(response => {
+      this.setState({
+        allSections: response
+      })
+    });
+    
     if (this.props.match.params.id) {
       const query = this.props.match.params.id;  
       this.props.getSingle(query).then(response=>{
@@ -76,13 +84,6 @@ class Formulario extends Component{
       });
     }
   }
-
-
-  componentDidUpdate(prevProps, prevState){
-    //console.log(prevProps)
-    //console.log(prevState)
-  }
-
 
   handleChange = (event) =>{
     switch(event.target.id){
@@ -95,10 +96,10 @@ class Formulario extends Component{
     }
   }
   handleurlNameChange = (idx) => (evt) => {
-    //console.log(evt.target.selectedOptions[0].innerHTML)
+    console.log(evt.currentTarget)
     const newurl = this.state.seccion.map((seccion, sidx) => {
       if (idx !== sidx) return seccion;
-      return { ...seccion, url: evt.target.value, title: evt.target.selectedOptions[0].innerHTML};
+      return { ...seccion, url: evt.target.value, title: evt.target.selectedOptions[0].innerHTML, menu: evt.target.selectedOptions[0].id};
     });
     
     this.setState({ 
@@ -108,7 +109,7 @@ class Formulario extends Component{
   }
   
   handleAddurl = () => {
-    this.setState({ seccion: this.state.seccion.concat([{ url: '', title:'' }]) });
+    this.setState({ seccion: this.state.seccion.concat([{ url: '', title:'', menu: false }]) });
   }
   
   handleRemoveurl = (idx) => () => {
@@ -125,7 +126,7 @@ class Formulario extends Component{
       const query = this.state.editID;  
       this.props.updatePerfil(query,data).then(response=>{
         if(response.value.mensaje.tipo ==="success"){
-          //this.props.resetAlerts();
+          t//his.props.resetAlerts();
         }
       });
     }else{
@@ -136,11 +137,19 @@ class Formulario extends Component{
       });
     } 
   }
+  handleCancelar = () =>{
+    this.setState({
+      perfil:'',
+      seccion: [{ url: '' , title:'', menu: false }]
+    });
+    this.props.resetPerfil();
+    this.props.history.push("/perfiles");
+  }
   
   render(){
-    const { secciones,mensaje } = this.props;
-    
-    console.log(this.props)
+    const { mensaje } = this.props;
+    const { allSections } = this.state;
+        
     return( 
       <div className="col-8 formulario">
         <form className="form">
@@ -161,8 +170,8 @@ class Formulario extends Component{
                     <option value={seccion.url}>{seccion.title}</option>
                   }
                   { 
-                    secciones && secciones.map((secciones,key) =>(
-                      <option key={key} value={secciones.url} >{secciones.title}</option>
+                    allSections && allSections.map((secciones,key) =>(
+                      <option key={key} id={secciones.menu} value={secciones.url} >{secciones.title}</option>
                     ))    
                   }
                   </select>
@@ -179,7 +188,7 @@ class Formulario extends Component{
                 <button className ="btn btn-primary formButton" onClick={(e)=>{this.getDataForm(e)}}>Guardar</button>
               </div>
               <div className="col-md-3" >
-                <Link to="/perfiles" className ="btn btn-default formButton"  >Cancelar</Link>
+                <button className ="btn btn-default formButton"  onClick={this.handleCancelar}>Cancelar</button>
               </div>
             </div>
         </form>
@@ -193,7 +202,7 @@ class Formulario extends Component{
   }
 }
 export default connect(state=>({
-secciones: state.sectionsReducer.secciones,
+
 mensaje: state.perfileReducer.alert,
 perfil: state.perfileReducer.perfil
 

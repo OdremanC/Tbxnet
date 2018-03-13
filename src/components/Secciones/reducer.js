@@ -28,8 +28,8 @@ export default function sectionsReducer(state = initialState, action){
     }
     case "DELETE_SECTION_SUCCESS":{
       const { payload: { response = [] }} = action;
-      var index = dataToChange.findIndex((menu)=>{
-        return menu._id === action.payload.menu._id;
+      var index = dataToChange.findIndex((secciones)=>{
+        return secciones._id === action.payload.secciones._id;
       });
       dataToChange.splice(index,1);
       return getNewState(state, {

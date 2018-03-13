@@ -4,6 +4,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PropTypes  from 'prop-types';
 import { Link } from 'react-router-dom';
 import Paginador from '../Global/Paginador';
+import * as FontAwesome from 'react-icons/lib/fa';
 import './tabla.css';
 
 
@@ -67,6 +68,7 @@ class Table  extends Component {
                       <td>{menu._id}</td>
                       <td>{menu.title}</td>
                       <td>{menu.url}</td>
+                      <td>{menu.menu && <FontAwesome.FaCheck />}</td>
                       <td>
                         <button className="btn btn-warning boton" id={menu._id} onClick={(event)=>this.props.handleEditar(event.target.id)}>Editar</button> 
                         <button className="btn btn-danger boton" id={menu._id} onClick={(event)=>this.props.handleEliminar(menu._id)}>Eliminar</button>
