@@ -8,6 +8,7 @@ const GET_ALL_SECTIONS = 'GET_ALL_SECTIONS';
 const ADD_NEW_SECTION = "ADD_NEW_SECTION";
 const DELETE_SECTION = "DELETE_SECTION";
 const EDIT_SECTION = "EDIT_SECTION";
+const RESET_ALERTS = "RESET_ALERTS";
 
 
 export function getAllMenu(){
@@ -32,5 +33,11 @@ export function editSection(query,data){
   return{
     type:EDIT_SECTION,
     payload: SectionApi.editMenuSection(query,data)
+  }
+}
+export function resetAlerts(){
+  return{
+    type: RESET_ALERTS,
+    payload: []  
   }
 }

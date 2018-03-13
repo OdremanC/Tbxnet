@@ -8,7 +8,7 @@ import './users.css';
 //LINK sirve para crear enlaces
 import { Link } from 'react-router-dom'; 
 import * as actions from './actions';
-
+import Alerts from '../Global/alerts';
 
 class Formulario extends Component{
 	
@@ -121,7 +121,7 @@ class Formulario extends Component{
 			perfil:''
 		});
 		this.props.cleanState();
-		this.props.history.push("/Users");
+		this.props.history.push("/Users"); 
 	}
 		getDataToSend = () =>{
     	
@@ -208,12 +208,14 @@ class Formulario extends Component{
 					</div>
 			  </div>
 			</Panel.Footer>
-			</Panel>
+			</Panel>      
 			</div>
+
 		);
 	}
 }
 export default connect(state =>({
 	dataToEdit: state.usersData.singleUser,
 	perfiles: state.usersData.allProfiles
+
 }),actions)(Formulario);

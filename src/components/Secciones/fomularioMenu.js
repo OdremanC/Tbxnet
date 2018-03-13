@@ -29,6 +29,7 @@ class Formulario extends Component{
       this.props.history.push('/login');
     }
   }
+  
   componentDidMount(){
 
     this.setState({

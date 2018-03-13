@@ -12,6 +12,7 @@ import { getValueLogin, getUserIdFromCookie } from '../Global/Functions/';
 import ReactTooltip from 'react-tooltip';
 import Table from './tablaMenu';
 import Formulario from './fomularioMenu';
+import Alerts from '../Global/alerts';
 import * as actions from './actions';
 import './menuComp.css';
 
@@ -21,7 +22,9 @@ class MenuData extends Component{
 
     this.state = {
       isOpen:false,
-      editData:{}
+      editData:{},
+      message:'',
+      alertTipo:''
     }
   }
 
@@ -40,17 +43,33 @@ class MenuData extends Component{
         editData: {}
       });
   }
+  componentWillReceiveProps(nextProps){
+  
+    if (nextProps.mensaje !== undefined) {
+      this.setState({
+        message: nextProps.mensaje.message,
+        alertTipo: nextProps.mensaje.tipo
+      });
+    }
+  }
   componentWillMount(){
+    this.props.resetAlerts();
     if (getValueLogin() !== true) {
       this.props.history.push('/login');
     }
   }
   componentDidMount(){
     this.props.getAllMenu();
+    this.props.resetAlerts();  
   }
+
   handleEliminarItem = (id) =>{
     const query = id;
-    this.props.deleteSection(query);
+    this.props.deleteSection(query).then( response => {
+        if (response.value.mensaje.tipo ==="success") {
+          this.props.resetAlerts();
+        }
+    });
   }
 
   handleEditarIndex = (event) => {
@@ -67,19 +86,26 @@ class MenuData extends Component{
     };
   }
   getDataFormChild = (dataFromForm) =>{
-      //console.log(dataFromForm)
-
+      
     const query = dataFromForm.editID;
     const data = {
      title: dataFromForm.title,
      url:dataFromForm.url,
      menu: dataFromForm.chkbox
     }
-    console.log(data)
+    
     if (query === undefined) {
-      this.props.addMenu(data);
+      this.props.addMenu(data).then( response => {
+        if (response.value.mensaje.tipo ==="success") {
+          this.props.resetAlerts();
+        }
+      });
     }else{
-      this.props.editSection(query,data);
+      this.props.editSection(query,data).then( response => {
+        if (response.value.mensaje.tipo ==="success") {
+          this.props.resetAlerts();
+        }
+      });
     }
     
     this.setState({ 
@@ -89,7 +115,7 @@ class MenuData extends Component{
   }
 
   render(){
-
+    console.log(this.state)
       const cabeceras = [
         {key:1,nombre:"ID"},
         {key:2,nombre:'Title'},
@@ -117,10 +143,15 @@ const element = <Formulario passDataToParent = {this.getDataFormChild} putCloseM
           children={element}
           title= "Add Urls"
         />
+        <Alerts 
+          message={this.state.message} 
+          tipo={this.state.alertTipo}      
+        />
       </div>
     );
   }
 }
 export default connect(state=>({
-  secciones: state.sectionsReducer.secciones
+  secciones: state.sectionsReducer.secciones,
+  mensaje : state.sectionsReducer.alert
 }),actions)(MenuData);

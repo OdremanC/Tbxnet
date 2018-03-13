@@ -4,7 +4,8 @@ import { getNewState } from '../../lib/utils/frontend';
 import * as actions from './actions';
 
 const initialState = {
-  secciones: []
+  secciones: [],
+  alert:[]
 }
 
 export default function sectionsReducer(state = initialState, action){
@@ -21,9 +22,10 @@ export default function sectionsReducer(state = initialState, action){
     }
     case "ADD_NEW_SECTION_SUCCESS":{
       const { payload: { response = [] }} = action;
-      const dataInsert = dataToChange.concat([action.payload]); 
+      const dataInsert = dataToChange.concat([action.payload.secciones]); 
       return getNewState(state, {
-        secciones: dataInsert
+        secciones: dataInsert,
+        alert: action.payload.mensaje
       });
     }
     case "DELETE_SECTION_SUCCESS":{
@@ -33,20 +35,28 @@ export default function sectionsReducer(state = initialState, action){
       });
       dataToChange.splice(index,1);
       return getNewState(state, {
-        secciones: dataToChange
+        secciones: dataToChange,
+        alert: action.payload.mensaje
       });
     }
     case "EDIT_SECTION_SUCCESS":{
       const { payload: {response = [] }} = action;
       var index = dataToChange.findIndex((menu)=>{
-        return menu._id === action.payload._id;
+        return menu._id === action.payload.secciones._id;
       });
-      dataToChange[index] = action.payload;
+      dataToChange[index] = action.payload.secciones;
       return getNewState(state, {
-          secciones: dataToChange
+        secciones: dataToChange,
+        alert: action.payload.mensaje
       });
     }
-    
+
+    case "RESET_ALERTS":{
+      return getNewState(state, {
+        alert: action.payload
+      });
+    }
+
     default:
         return state; 
     }
