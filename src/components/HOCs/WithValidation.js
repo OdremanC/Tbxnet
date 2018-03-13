@@ -10,6 +10,7 @@ export default function requiresAuth(Component) {
     };
 
     componentWillMount(){
+      const { dispatch } = this.props;
       if (!getValueLogin()) {
         dispatch(push('/login'));
       }
