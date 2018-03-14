@@ -18,7 +18,9 @@ class Formulario extends Component{
       chkbox: false
     };   
   }
+  static propTypes ={
 
+  }
   componentWillMount(){
     if (!getValueLogin()) {
       this.props.history.push('/login');
@@ -28,7 +30,8 @@ class Formulario extends Component{
   componentDidMount(){
 
     this.setState({
-       ...this.props.dataToEdit
+       ...this.props.dataToEdit,
+       editID: this.props.dataToEdit._id
     });
   }
 

@@ -51,6 +51,7 @@ class Formulario extends Component{
 
 	componentWillReceiveProps(nextProps){
 		const dataToEdit = nextProps.dataToEdit;
+		
 		if (nextProps.mensaje) {
       this.setState({
         message: nextProps.mensaje.message,
@@ -58,7 +59,7 @@ class Formulario extends Component{
       });
     }
 		if (nextProps.dataToEdit) {
-			this.setState({...dataToEdit});
+			this.setState({...dataToEdit, editID: dataToEdit._id});
 		}
 	}
 
@@ -130,7 +131,7 @@ class Formulario extends Component{
 		});
 	}
 	render(){
-		
+		console.log(this.state)
 		const valor = this.props.perfiles.find(element => element._id === this.state.perfiles);
 		
 		return(	

@@ -6,9 +6,9 @@ import { apiFetch } from '../../lib/utils/api';
 
 
 class UsersApi {
-  static getUsersData() {
+  static getUsersData(token) {
   	const method = "GET";
-  	return apiFetch(API.USERS.ALLUSERS,{},'','',method);
+  	return apiFetch(API.USERS.ALLUSERS,{token:token},'','',method);
   }
   static deleteUserData(query){
     const method = "DELETE";

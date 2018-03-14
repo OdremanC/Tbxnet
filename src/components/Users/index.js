@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import PropTypes  from 'prop-types';
 //conexion a redux
 import { connect } from 'react-redux';
-import { getValueLogin } from '../Global/Functions/';
+import { getUserJwt,getValueLogin } from '../Global/Functions/';
 
 import  Modal from '../Global/ModalComponent/Modal';
 import Formulario from './formUsers';
@@ -45,7 +45,9 @@ class Users extends Component {
 	}
 	
   componentDidMount(){
-    this.props.getAllUsers();
+    const token = getUserJwt();
+    //console.log(token)
+    this.props.getAllUsers(token);
     this.props.getProfiles();
   }
 
@@ -73,7 +75,7 @@ class Users extends Component {
   }
 
 	render(){
-		console.log(this.state)
+		
 		const { DataUsers } = this.props;
 
 		const cabeceras = [

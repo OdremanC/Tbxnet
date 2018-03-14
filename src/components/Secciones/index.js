@@ -45,11 +45,10 @@ class MenuData extends Component{
   }
   componentWillReceiveProps(nextProps){
     const mensaje = nextProps.mensaje;
-    if (mensaje) {
-      this.setState({
-        ...mensaje
+    this.setState({
+        message: mensaje.message,
+        alertTipo: mensaje.tipo
       });
-    }
   }
   componentWillMount(){
     this.props.resetAlerts();

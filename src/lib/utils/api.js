@@ -37,17 +37,18 @@ export function apiEndpoint(endpoint, query) {
 
 //configuracion de los headers 
 export function apiOptions(options = {} , data = '', method ='') {
+    console.log(options.token)
   //const method = method != '' ? 'POST' : 'GET';
-  const headers = {
-    'Content-Type': 'application/json'
-  };
+  var headers = { 'Content-Type':'application/json','Authorization':options.token};
+
+  console.log(headers)
   
   let newOptions = {
     method,
     headers
   };
 
-  if (data != '') {
+  if (data !== '') {
     newOptions.body = JSON.stringify(data);
   }
 

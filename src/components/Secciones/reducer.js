@@ -23,6 +23,7 @@ export default function sectionsReducer(state = initialState, action){
     case "ADD_NEW_SECTION_SUCCESS":{
       const { payload: { response = [] }} = action;
       const dataInsert = dataToChange.concat([action.payload.secciones]); 
+      
       return getNewState(state, {
         secciones: dataInsert,
         alert: action.payload.mensaje

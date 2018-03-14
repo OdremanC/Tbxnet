@@ -48,8 +48,7 @@ componentWillReceiveProps(nextProps){
       });
     }
   }
-
-  
+ 
   
   logout = (event)=>{
     event.preventDefault();

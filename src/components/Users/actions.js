@@ -16,10 +16,10 @@ const CLEAN_STATE = "CLEAN_STATE";
 const GET_USER_LOGIN_PERFIL = "GET_USER_LOGIN_PERFIL";
 const RESET_ALERTS = "RESET_ALERTS";
 
-export function getAllUsers(){
+export function getAllUsers(token){
   return {
     type: GET_ALL_USERS,
-    payload: UsersApi.getUsersData()
+    payload: UsersApi.getUsersData(token)
   }
 }
 export function deleteUser(query){

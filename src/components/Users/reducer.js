@@ -61,11 +61,12 @@ export default function usersData(state = initialState, action){
 		case "EDIT_USER_SUCCESS":{
 			const { payload: {response = [] }} = action;
 			var index = dataUsers.findIndex((users)=>{
-		    return users._id === action.payload._id;
+		    return users._id === action.payload.users._id;
 		  });
 		  dataUsers[index] = action.payload;
 		  return getNewState(state, {
-		    	users: dataUsers
+		    	users: dataUsers,
+		    	alert: action.payload.mensaje
 		  });
 		}
 		case "GET_USER_PROFILE_SUCCESS": {
