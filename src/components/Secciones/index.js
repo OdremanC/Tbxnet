@@ -44,17 +44,16 @@ class MenuData extends Component{
       });
   }
   componentWillReceiveProps(nextProps){
-  
-    if (nextProps.mensaje !== undefined) {
+    const mensaje = nextProps.mensaje;
+    if (mensaje) {
       this.setState({
-        message: nextProps.mensaje.message,
-        alertTipo: nextProps.mensaje.tipo
+        ...mensaje
       });
     }
   }
   componentWillMount(){
     this.props.resetAlerts();
-    if (getValueLogin() !== true) {
+    if (!getValueLogin()) {
       this.props.history.push('/login');
     }
   }
@@ -94,7 +93,7 @@ class MenuData extends Component{
      menu: dataFromForm.chkbox
     }
     
-    if (query === undefined) {
+    if (!query) {
       this.props.addMenu(data).then( response => {
         if (response.value.mensaje.tipo ==="success") {
           this.props.resetAlerts();
@@ -115,7 +114,7 @@ class MenuData extends Component{
   }
 
   render(){
-    console.log(this.state)
+    
       const cabeceras = [
         {key:1,nombre:"ID"},
         {key:2,nombre:'Title'},

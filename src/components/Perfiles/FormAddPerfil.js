@@ -33,10 +33,10 @@ class Formulario extends Component{
 
   componentWillReceiveProps(nextProps){
     
-    if (getValueLogin() !== true) {
+    if (!getValueLogin()) {
         this.props.history.push('/login');
     }
-    if (nextProps.perfil.perfilName !== undefined) {
+    if (nextProps.perfil.perfilName) {
       this.setState({
         editID: nextProps.perfil._id,
         perfil: nextProps.perfil.perfilName,
@@ -44,7 +44,7 @@ class Formulario extends Component{
       });
     }
 
-    if (nextProps.mensaje !== undefined) {
+    if (nextProps.mensaje) {
       this.setState({
         message: nextProps.mensaje.message,
         alertTipo: nextProps.mensaje.tipo
@@ -59,7 +59,7 @@ class Formulario extends Component{
     }
   }
   componentWillMount(){
-    if (getValueLogin() !== true) {
+    if (!getValueLogin()) {
       this.props.history.push('/login');
     }
     this.props.resetAlerts();
@@ -86,17 +86,12 @@ class Formulario extends Component{
   }
 
   handleChange = (event) =>{
-    switch(event.target.id){
-      case "perfil":
-
-        this.setState({
-          perfil : event.target.value
-        });
-      break;
-    }
+    const state =  this.state;
+    state[event.target.id] = event.target.value;    
+    this.setState(state);
   }
   handleurlNameChange = (idx) => (evt) => {
-    console.log(evt.currentTarget)
+    
     const newurl = this.state.seccion.map((seccion, sidx) => {
       if (idx !== sidx) return seccion;
       return { ...seccion, url: evt.target.value, title: evt.target.selectedOptions[0].innerHTML, menu: evt.target.selectedOptions[0].id};
@@ -126,7 +121,7 @@ class Formulario extends Component{
       const query = this.state.editID;  
       this.props.updatePerfil(query,data).then(response=>{
         if(response.value.mensaje.tipo ==="success"){
-          t//his.props.resetAlerts();
+          //this.props.resetAlerts();
         }
       });
     }else{

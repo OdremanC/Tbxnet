@@ -10,7 +10,8 @@ const initialState = {
 	errorLogin: '',
 	errorSubmit:'',
 	allProfiles: [],
-	perfilLog:[]
+	perfilLog:[],
+	alert:[]
 }
 
 export default function usersData(state = initialState, action){
@@ -31,7 +32,8 @@ export default function usersData(state = initialState, action){
 		  });
 		  dataUsers.splice(index,1);
 			return getNewState(state, {
-				users: dataUsers
+				users: dataUsers,
+				alert: action.payload.mensaje
 			});
 		}
 		case 'GET_USER_SUCCESS': { 
@@ -42,15 +44,18 @@ export default function usersData(state = initialState, action){
 	    }
 	    case "SET_LOGGIN_USER_SUCCESS":{
 			const { payload: { response = [] }} = action;
+
 			return getNewState(state, {
 				isLogged:action.payload.isLogged
 			});
 		}
 		case "ADD_NEW_USER_SUCCESS":{
 			const { payload: { response = [] }} = action;
-			const dataInsert = dataUsers.concat([action.payload]);  
+			const dataInsert = dataUsers.concat([action.payload.users]);
+
 			return getNewState(state, {
-				users: dataInsert
+				users: dataInsert,
+				alert: action.payload.mensaje
 			});
 		}
 		case "EDIT_USER_SUCCESS":{
@@ -92,6 +97,13 @@ export default function usersData(state = initialState, action){
         perfilLog: action.payload
       });
     }
+
+    case "RESET_ALERTS":{
+      return getNewState(state, {
+        alert: action.payload
+      });
+    }
+
     	default:
       	return state;	
 		}

@@ -18,19 +18,10 @@ class FormLogin extends Component{
 	}
 
 	handleChange = (event) => {
-
-		switch(event.target.id){
-			case "usuario":
-				this.setState({
-					usuario: event.target.value
-				});
-				break;
-			case "password":
-				this.setState({
-					password: event.target.value
-				});
-				break;
-		}
+		
+		const state = this.state;
+		state[event.target.id] = event.target.value;		
+		this.setState(state);		
 	}
 
 	render(){

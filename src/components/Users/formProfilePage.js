@@ -30,14 +30,14 @@ class ProfilePage extends Component{
 	}
 
 	componentWillMount(){
-		if (getValueLogin() !== true) {
+		if (!getValueLogin()) {
      	this.props.history.push('/login');
     }
 	}
 	componentDidMount(){
 		const query = getUserNameLogin();
 		this.props.getUserProfile(query);
-		if (this.props.dataProfile[0] !== undefined) {
+		if (this.props.dataProfile[0]) {
 			this.setState({
 				firstName: this.props.dataProfile[0].firstName,
 				lastName: this.props.dataProfile[0].lastName,

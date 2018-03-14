@@ -13,6 +13,7 @@ import Formulario from './formUsers';
 import Table from './TableGenerator';
 //import Formulario from './Formularios/formStock';
 import * as actions from './actions';
+import Alerts from '../Global/alerts';
 
 class Users extends Component {
 	constructor(props){
@@ -20,16 +21,25 @@ class Users extends Component {
 		this.state={
 
 			isOpen:false,
-			editData:{}
+			editData:{},
+      message:'',
+      alertTipo:''
 		}
 	}
 
 	static proptypes = {
 		getAllUsers: PropTypes.func
 	}
-	
+	componentWillReceiveProps(nextProps){
+    if (nextProps.mensaje) {
+      this.setState({
+        message: nextProps.mensaje.message,
+        alertTipo: nextProps.mensaje.tipo
+      });
+    }
+  }
   componentWillMount(){
-		if (getValueLogin() !== true) {
+		if (!getValueLogin()) {
      	this.props.history.push('/login');
     }
 	}
@@ -63,7 +73,7 @@ class Users extends Component {
   }
 
 	render(){
-		
+		console.log(this.state)
 		const { DataUsers } = this.props;
 
 		const cabeceras = [
@@ -90,11 +100,16 @@ class Users extends Component {
           profiles={this.props.perfiles}
 			>
 			</Table>
+      <Alerts 
+        message={this.state.message} 
+        tipo={this.state.alertTipo}      
+       />
 			</div>
 		);
 	}
 }
 export default connect(state => ({
 	DataUsers: state.usersData.users,
-  perfiles: state.usersData.allProfiles
+  perfiles: state.usersData.allProfiles,
+  mensaje : state.usersData.alert
 }), actions)(Users);

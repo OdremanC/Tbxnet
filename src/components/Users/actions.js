@@ -14,7 +14,7 @@ const GET_USER_PROFILE = "GET_USER_PROFILE";
 const GET_PROFILES = "GET_PROFILES";
 const CLEAN_STATE = "CLEAN_STATE";
 const GET_USER_LOGIN_PERFIL = "GET_USER_LOGIN_PERFIL";
-
+const RESET_ALERTS = "RESET_ALERTS";
 
 export function getAllUsers(){
   return {
@@ -50,7 +50,8 @@ export function setLogin(query,data){
         userID: response.userID,
     		userName: data.userName,
         userPerfil: response.userProfile, 
-    		isLogged:true
+    		isLogged:true,
+        token: response.token
     	};
        
     	const fecha = new Date();
@@ -99,5 +100,11 @@ export function getUserLogingPerfil(query){
   return{
     type: GET_USER_LOGIN_PERFIL,
     payload: UsersApi.getPerfilLogin(query)
+  }
+}
+export function resetAlerts(){
+  return{
+    type: RESET_ALERTS,
+    payload: []  
   }
 }

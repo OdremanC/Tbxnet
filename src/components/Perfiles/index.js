@@ -34,7 +34,7 @@ class Perfiles extends Component{
   }
   componentWillReceiveProps(nextProps){
   
-    if (nextProps.mensaje !== undefined) {
+    if (nextProps.mensaje) {
       this.setState({
         message: nextProps.mensaje.message,
         alertTipo: nextProps.mensaje.tipo

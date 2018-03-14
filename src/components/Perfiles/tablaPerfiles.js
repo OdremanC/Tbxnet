@@ -20,9 +20,6 @@ class Table  extends Component {
   static propTypes = {
     tableData: PropTypes.array    
   };
-  componentWillReceiveProps(nextProps){
-    
-  }
 
   getDataPerPage = (event) =>{
     this.setState({

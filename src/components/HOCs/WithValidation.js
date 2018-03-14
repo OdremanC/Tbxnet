@@ -27,12 +27,13 @@ export default function requiresAuth(Component) {
       const { dispatch } = this.props;
 
       let actualPath = location.pathname;
-      let pathAccess = false;
+      let pathAccess;
       if (this.props.menuData.sections) {
-         pathAccess = this.props.menuData.sections.find( element => {
+        pathAccess = this.props.menuData.sections.find( element => {
           return element.url === actualPath;
         });
-        if (pathAccess === undefined) {
+        
+        if (!pathAccess) {
           dispatch(push('/'));
         }
       }
@@ -42,13 +43,13 @@ export default function requiresAuth(Component) {
       const { menuData } = this.props;
     
       let actualPath = location.pathname;
-      let ruta = false;
+      let ruta;
       if (menuData.sections) {
-         ruta = menuData.sections.find( element => {
-          return element.url === actualPath;
+        ruta = menuData.sections.find( element => {
+          return element.url === actualPath; 
         });  
       }
-    
+          
       return (
         <div className="authenticated">
           { 

@@ -16,16 +16,11 @@ class Formulario extends Component{
       url: '',
       editID:'',
       chkbox: false
-    };
-   
+    };   
   }
-  
-  static propTypes = {
 
-
-  }
   componentWillMount(){
-    if (getValueLogin() !== true) {
+    if (!getValueLogin()) {
       this.props.history.push('/login');
     }
   }
@@ -33,14 +28,12 @@ class Formulario extends Component{
   componentDidMount(){
 
     this.setState({
-      title: this.props.dataToEdit.title,
-      url: this.props.dataToEdit.url,
-      chkbox: this.props.dataToEdit.menu,
-      editID: this.props.dataToEdit._id
+       ...this.props.dataToEdit
     });
   }
 
   handleChange = (event) =>{
+
     switch(event.target.id){
       case "title":
         this.setState({
@@ -52,7 +45,7 @@ class Formulario extends Component{
           url : event.target.value
         });
       break;
-      case "checkbox":
+      case "chkbox":
         if (this.state.chkbox === false) {
           this.setState({
             chkbox: true
@@ -68,7 +61,7 @@ class Formulario extends Component{
 
 
   render(){
-    console.log(this.state)
+    
     return( 
       <div className="contenForm"> 
         <form className="form formularioSecciones" >
@@ -78,7 +71,7 @@ class Formulario extends Component{
           <input type="text" className="form-control " id="url" placeholder="URL...." value={this.state.url}  onChange={this.handleChange} />
           <div className="checkbox">
             <label className="chkbx">
-              <input type="checkbox" value={this.state.chkbox} checked={this.state.chkbox} onChange={this.handleChange} id="checkbox" /> is a menu item?
+              <input type="checkbox" value={this.state.chkbox} checked={this.state.chkbox} onChange={this.handleChange} id="chkbox" /> is a menu item?
             </label>
           </div>
           <div className="row">

@@ -22,9 +22,11 @@ class Formulario extends Component{
 			email: '',
 			password:'',
 			editID:'',
-			perfil:'',
+			perfiles:'',
 			userProfile:[],
-			valor: undefined
+			valor: undefined,
+			message:'',
+      alertTipo:''
 		};
 		this.handleChange = this.handleChange.bind(this);
 	}
@@ -32,85 +34,91 @@ class Formulario extends Component{
 	static propTypes = {
 		getDataFormChild: PropTypes.func,
 		putCloseModal: PropTypes.func,
-		dataToEdit: PropTypes.object,
 		addOpen: PropTypes.bool
 
 	}
 	componentWillMount(){
-		if (getValueLogin() !== true) {
+		if (!getValueLogin()) {
      	this.props.history.push('/login');
     }
 	}
 
-	handleChange =(event) =>{
-
-		switch(event.target.id){
-			case "userName":
-				this.setState({
-					userName : event.target.value
-				});
-				break;
-			case "email":
-				this.setState({
-					email : event.target.value
-				});
-				break;
-			case "password":
-				this.setState({
-					password : event.target.value
-				});
-				break;
-			case "firstName":
-				this.setState({
-					firstName : event.target.value
-				});
-				break;
-			case "lastName":
-				this.setState({
-					lastName : event.target.value
-				});
-				break;
-			case "perfiles":
-				this.setState({perfil: event.target.value});
-				break
-		}
+	handleChange =(event) => {
+		const state = this.state; 
+		state[event.target.id] = event.target.value;
+		 this.setState(state);
 	}
-	componentWillReceiveProps(nextProps){
-		
-		if (nextProps.dataToEdit !== undefined) {
 
-			this.setState({
-				firstName: nextProps.dataToEdit.firstName,
-				lastName: nextProps.dataToEdit.lastName,
-				userName: nextProps.dataToEdit.userName,
-				email: nextProps.dataToEdit.email,
-				password: nextProps.dataToEdit.password,
-				editID: nextProps.dataToEdit._id,
-				perfil: nextProps.dataToEdit.perfil
-			});
-		}		
+	componentWillReceiveProps(nextProps){
+		const dataToEdit = nextProps.dataToEdit;
+		if (nextProps.mensaje) {
+      this.setState({
+        message: nextProps.mensaje.message,
+        alertTipo: nextProps.mensaje.tipo
+      });
+    }
+		if (nextProps.dataToEdit) {
+			this.setState({...dataToEdit});
+		}
 	}
 
 	componentDidMount(){
+		this.props.resetAlerts();
 		this.props.getProfiles();
-		if (this.props.match.params.id !== undefined) {
+
+		if (this.props.match.params.id) {
 			const query = this.props.match.params.id;
 			this.props.getUser(query);
 		}
 
 		if (this.props.dataToEdit) {
+			const dataToEdit = this.props.dataToEdit;
+
 			this.setState({
-				firstName: this.props.dataToEdit.firstName,
-				lastName: this.props.dataToEdit.lastName,
-				userName: this.props.dataToEdit.userName,
-				email: this.props.dataToEdit.email,
-				password: this.props.dataToEdit.password,
-				editID: this.props.dataToEdit._id,
-				perfil: this.props.dataToEdit.perfil
+				...dataToEdit,
+				editID: dataToEdit._id
 			});
 		}		
 	}
+
 	cancelar = () =>{
+		this.clearState();
+		this.props.cleanState();
+		this.props.history.push("/Users"); 
+	}
+		getDataToSend = () => {
+    	
+	    const query = this.state.editID;
+	    
+	    const data = {
+	    	firstName: this.state.firstName,
+	    	lastName: this.state.lastName,
+	    	userName: this.state.userName,
+	    	password: this.state.password,
+	    	email: this.state.email,
+	    	perfil: this.state.perfiles
+	    };
+	    	    
+	    if (!query) {
+	    	this.props.AddUser(data).then(response =>{
+	    		if (response.value.mensaje.tipo ==="success") {
+	    			this.props.history.push("/Users");
+	    		}
+	    	});
+
+	    }else{
+	      	this.props.editUserData(query,data).then(response =>{
+	    		if (response) {
+	    			this.props.history.push("/Users");
+	    		}
+	    	});
+    }
+    
+    this.setState({ 
+    	editData: {}
+    });
+	}
+	clearState = () => {
 		this.setState({
 			firstName: '',
 			lastName: '',
@@ -118,52 +126,16 @@ class Formulario extends Component{
 			email: '',
 			password:'',
 			editID:'',
-			perfil:''
+			perfiles:''
 		});
-		this.props.cleanState();
-		this.props.history.push("/Users"); 
 	}
-		getDataToSend = () =>{
-    	
-    const query = this.state.editID;
-    
-    const data = {
-    	firstName: this.state.firstName,
-    	lastName: this.state.lastName,
-      userName: this.state.userName,
-      email: this.state.email,
-      password: this.state.password,
-      perfil: this.state.perfil
-    }
-    
-    if (query === undefined) {
-    	this.props.AddUser(data).then(response =>{
-    		if (response) {
-    			this.props.history.push("/Users");
-    		}
-    	});
-    }else{
-      	this.props.editUserData(query,data).then(response =>{
-    		if (response) {
-    			this.props.history.push("/Users");
-    		}
-    	});
-    }
-    
-    this.setState({ 
-    	isOpen: false,
-    	editData: {}
-    });
-	}
-
 	render(){
 		
-		const valor = this.props.perfiles.find(element => {
-  		return element._id === this.state.perfil;
-		});
+		const valor = this.props.perfiles.find(element => element._id === this.state.perfiles);
 		
 		return(	
 			<div className="col-6 formAdd">
+
 			<Panel bsStyle="default">
 			<Panel.Heading>
 			<Panel.Title componentClass="h3">Cargar usuarios</Panel.Title>
@@ -176,10 +148,10 @@ class Formulario extends Component{
 				  <input type="text" className="form-control " id="firstName" placeholder="Nombre..." value={this.state.firstName}  onChange={this.handleChange} />
 				  <label htmlFor="lastName"> Apellido:</label>
 				  <input type="text" className="form-control " id="lastName" placeholder="Apellido..." value={this.state.lastName}  onChange={this.handleChange} />
-				  <label htmlFor="perfil"> Perfil:</label>
+				  <label htmlFor="perfiles"> Perfil:</label>
 				  <select id="perfiles" className="form-control" onChange={this.handleChange}>
 				  {
-				  	valor != undefined ? <option value={valor._id}>{valor.perfilName}</option>	: <option value="">Seleccione</option>
+				  	valor && valor ? <option value={valor._id}>{valor.perfilName}</option>	: <option value="">Seleccione</option>
 				  }
 				  
 				  {
@@ -208,7 +180,7 @@ class Formulario extends Component{
 					</div>
 			  </div>
 			</Panel.Footer>
-			</Panel>      
+			</Panel>    
 			</div>
 
 		);
@@ -216,6 +188,6 @@ class Formulario extends Component{
 }
 export default connect(state =>({
 	dataToEdit: state.usersData.singleUser,
-	perfiles: state.usersData.allProfiles
-
+	perfiles: state.usersData.allProfiles,
+	mensaje : state.usersData.alert
 }),actions)(Formulario);
