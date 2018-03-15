@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Panel,FormGroup,FormControl,ControlLabel,HelpBlock } from 'react-bootstrap'
 import PropTypes  from 'prop-types';
 import { connect } from 'react-redux';
-import { getValueLogin } from '../Global/Functions/';
+import { getUserJwt,getValueLogin } from '../Global/Functions/';
 import './users.css';
 //LINK sirve para crear enlaces
 import { Link } from 'react-router-dom'; 
@@ -64,12 +64,13 @@ class Formulario extends Component{
 	}
 
 	componentDidMount(){
+		const token = getUserJwt();
 		this.props.resetAlerts();
 		this.props.getProfiles();
 
 		if (this.props.match.params.id) {
 			const query = this.props.match.params.id;
-			this.props.getUser(query);
+			this.props.getUser(query,token);
 		}
 
 		if (this.props.dataToEdit) {
@@ -84,11 +85,11 @@ class Formulario extends Component{
 
 	cancelar = () =>{
 		this.clearState();
-		this.props.cleanState();
+		this.props.resetSingleUserState();
 		this.props.history.push("/Users"); 
 	}
 		getDataToSend = () => {
-    	
+    	const token = getUserJwt();
 	    const query = this.state.editID;
 	    
 	    const data = {
@@ -131,7 +132,7 @@ class Formulario extends Component{
 		});
 	}
 	render(){
-		console.log(this.state)
+		
 		const valor = this.props.perfiles.find(element => element._id === this.state.perfiles);
 		
 		return(	

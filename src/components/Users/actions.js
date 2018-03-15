@@ -12,7 +12,7 @@ const ADD_NEW_USER = "ADD_NEW_USER";
 const EDIT_USER = "EDIT_USER";
 const GET_USER_PROFILE = "GET_USER_PROFILE";
 const GET_PROFILES = "GET_PROFILES";
-const CLEAN_STATE = "CLEAN_STATE";
+const RESET_SINGLE_USER_STATE = "RESET_SINGLE_USER_STATE";
 const GET_USER_LOGIN_PERFIL = "GET_USER_LOGIN_PERFIL";
 const RESET_ALERTS = "RESET_ALERTS";
 
@@ -28,10 +28,10 @@ export function deleteUser(query){
 		payload: UsersApi.deleteUserData(query)
 	}
 }
-export function getUser(query){
+export function getUser(query,token){
 	return {
 		type: GET_USER,
-		payload: UsersApi.getUserToLogin(query)
+		payload: UsersApi.getUserToLogin(query,token)
 	}
 }
 
@@ -90,9 +90,9 @@ export function getProfiles(){
     payload: UsersApi.getAllProfiles()
   }
 }
-export function cleanState(){
+export function resetSingleUserState(){
   return{
-    type: CLEAN_STATE,
+    type: RESET_SINGLE_USER_STATE,
     payload: []
   }
 }

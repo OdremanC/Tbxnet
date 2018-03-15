@@ -46,7 +46,6 @@ class Users extends Component {
 	
   componentDidMount(){
     const token = getUserJwt();
-    //console.log(token)
     this.props.getAllUsers(token);
     this.props.getProfiles();
   }

@@ -14,9 +14,9 @@ class UsersApi {
     const method = "DELETE";
     return apiFetch(API.USERS.DELETE,{},query,'',method);
   }
-  static getUserToLogin(query){
+  static getUserToLogin(query,token){
     const method = "GET";
-    return apiFetch(API.USERS.DELETE,{},query,'',method);
+    return apiFetch(API.USERS.DELETE,{token:token},query,'',method);
   }
   static setLogginUser(query,data){
     const method = "POST";

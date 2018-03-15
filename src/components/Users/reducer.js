@@ -86,7 +86,7 @@ export default function usersData(state = initialState, action){
 				allProfiles: action.payload
 			});
 		}
-		case "CLEAN_STATE": {
+		case "RESET_SINGLE_USER_STATE": {
 			return getNewState(state, {
 				singleUser: action.payload
 			});

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 import * as actions from '../Users/actions';
-import { getValueLogin, getUserNameLogin, getPerfil } from '../Global/Functions/';
+import { getUserJwt,getValueLogin, getUserNameLogin, getPerfil } from '../Global/Functions/';
 
 const cookies = new Cookies();
 

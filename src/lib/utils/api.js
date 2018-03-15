@@ -7,7 +7,6 @@ import config from '../../config';
 //funcion que realiza el fetch al servicio a consumir
 export function apiFetch(endpoint, options = {}, query, data,method) {
 
-
   const getPromise = async () => {
     
     try {
@@ -37,11 +36,9 @@ export function apiEndpoint(endpoint, query) {
 
 //configuracion de los headers 
 export function apiOptions(options = {} , data = '', method ='') {
-    console.log(options.token)
+
   //const method = method != '' ? 'POST' : 'GET';
   var headers = { 'Content-Type':'application/json','Authorization':options.token};
-
-  console.log(headers)
   
   let newOptions = {
     method,
