@@ -1,11 +1,16 @@
 // Dependencies
 import queryString from 'query-string';
-
 // Config
 import config from '../../config';
+import { getUserJwt } from '../../components/Global/Functions/';
 
 //funcion que realiza el fetch al servicio a consumir
 export function apiFetch(endpoint, options = {}, query, data,method) {
+
+  const token = getUserJwt();
+  if (token) {
+    options ={"token":token};
+  }
 
   const getPromise = async () => {
     

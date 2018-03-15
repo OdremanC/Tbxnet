@@ -1,5 +1,6 @@
 // API
 import UsersApi from './api'; 
+
 //cookies
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -16,10 +17,10 @@ const RESET_SINGLE_USER_STATE = "RESET_SINGLE_USER_STATE";
 const GET_USER_LOGIN_PERFIL = "GET_USER_LOGIN_PERFIL";
 const RESET_ALERTS = "RESET_ALERTS";
 
-export function getAllUsers(token){
+export function getAllUsers(){
   return {
     type: GET_ALL_USERS,
-    payload: UsersApi.getUsersData(token)
+    payload: UsersApi.getUsersData()
   }
 }
 export function deleteUser(query){
@@ -28,10 +29,10 @@ export function deleteUser(query){
 		payload: UsersApi.deleteUserData(query)
 	}
 }
-export function getUser(query,token){
+export function getUser(query){
 	return {
 		type: GET_USER,
-		payload: UsersApi.getUserToLogin(query,token)
+		payload: UsersApi.getUserToLogin(query)
 	}
 }
 

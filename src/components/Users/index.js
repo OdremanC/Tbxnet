@@ -14,7 +14,7 @@ import Table from './TableGenerator';
 //import Formulario from './Formularios/formStock';
 import * as actions from './actions';
 import Alerts from '../Global/alerts';
-
+const token = getUserJwt();
 class Users extends Component {
 	constructor(props){
 		super(props)
@@ -65,7 +65,7 @@ class Users extends Component {
 
   handleEliminarItem = (id) =>{
 		const query = id;
-		this.props.deleteUser(query);
+		this.props.deleteUser(query,token);
 	}
 
 	handleEditarIndex = (event) => {

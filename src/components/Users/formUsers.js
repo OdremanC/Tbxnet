@@ -41,6 +41,7 @@ class Formulario extends Component{
 		if (!getValueLogin()) {
      	this.props.history.push('/login');
     }
+    this.props.resetSingleUserState();
 	}
 
 	handleChange =(event) => {
@@ -59,18 +60,21 @@ class Formulario extends Component{
       });
     }
 		if (nextProps.dataToEdit) {
-			this.setState({...dataToEdit, editID: dataToEdit._id});
+			this.setState({
+				...dataToEdit, 
+				editID: dataToEdit._id				
+			});
 		}
 	}
 
 	componentDidMount(){
-		const token = getUserJwt();
+		
 		this.props.resetAlerts();
 		this.props.getProfiles();
 
 		if (this.props.match.params.id) {
 			const query = this.props.match.params.id;
-			this.props.getUser(query,token);
+			this.props.getUser(query);
 		}
 
 		if (this.props.dataToEdit) {
@@ -89,7 +93,7 @@ class Formulario extends Component{
 		this.props.history.push("/Users"); 
 	}
 		getDataToSend = () => {
-    	const token = getUserJwt();
+    	
 	    const query = this.state.editID;
 	    
 	    const data = {
@@ -98,7 +102,7 @@ class Formulario extends Component{
 	    	userName: this.state.userName,
 	    	password: this.state.password,
 	    	email: this.state.email,
-	    	perfil: this.state.perfiles
+	    	perfil: this.state.perfil
 	    };
 	    	    
 	    if (!query) {
@@ -128,12 +132,12 @@ class Formulario extends Component{
 			email: '',
 			password:'',
 			editID:'',
-			perfiles:''
+			perfil:''
 		});
 	}
 	render(){
 		
-		const valor = this.props.perfiles.find(element => element._id === this.state.perfiles);
+		const valor = this.props.perfiles.find(element => element._id === this.state.perfil);
 		
 		return(	
 			<div className="col-6 formAdd">
@@ -150,10 +154,10 @@ class Formulario extends Component{
 				  <input type="text" className="form-control " id="firstName" placeholder="Nombre..." value={this.state.firstName}  onChange={this.handleChange} />
 				  <label htmlFor="lastName"> Apellido:</label>
 				  <input type="text" className="form-control " id="lastName" placeholder="Apellido..." value={this.state.lastName}  onChange={this.handleChange} />
-				  <label htmlFor="perfiles"> Perfil:</label>
-				  <select id="perfiles" className="form-control" onChange={this.handleChange}>
+				  <label htmlFor="perfil"> Perfil:</label>
+				  <select id="perfil" className="form-control" onChange={this.handleChange}>
 				  {
-				  	valor && valor ? <option value={valor._id}>{valor.perfilName}</option>	: <option value="">Seleccione</option>
+				  	valor ? <option value={valor._id}>{valor.perfilName}</option>	: <option value="">Seleccione</option>
 				  }
 				  
 				  {
