@@ -28,9 +28,10 @@ class Formulario extends Component{
   }
   
   componentDidMount(){
-
+    
     this.setState({
        ...this.props.dataToEdit,
+       chkbox: this.props.dataToEdit.menu,
        editID: this.props.dataToEdit._id
     });
   }
