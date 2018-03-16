@@ -26,7 +26,7 @@ class Alerts extends Component {
         position: 'bottom-right',
         effect: 'slide',
         onShow: function () {
-            console.log('Success!')
+            //console.log('Success!')
         },
         beep: false,
         timeout: 3000,
@@ -37,7 +37,7 @@ class Alerts extends Component {
         position: 'bottom-right',
         effect: 'slide',
         onShow: function () {
-            console.log('error!')
+            //console.log('error!')
         },
         beep: false,
         timeout: 3000,
